@@ -38,6 +38,8 @@ opcodes = [
     'BO',
     'BN',
     'BZ',
+    '[WORD]',
+    '[FILL]'
 ]
 
 registers = [
@@ -93,6 +95,8 @@ tokens = (
     'BZ',
     'REGISTER',
     'NUMBER',
+    'WORD',
+    'FILL'
 )
 
 def t_comment_eol_1(t):
@@ -128,6 +132,14 @@ def t_NUMBER(t):
     t.value = int(t.value)
     return t
 
+def t_WORD(t):
+    r'\[WORD\]'
+    return t
+
+def t_FILL(t):
+    r'\[FILL]'
+    return t
+
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -153,6 +165,14 @@ def p_instlist_inst(p):
 def p_instlist_empty(p):
     'instlist : '
     p[0] = []
+
+def p_directive_word(p):
+    'inst : WORD NUMBER NUMBER'
+    p[0] = [(p[1], p[2], p[3], None, p.lineno(1))]
+
+def p_directive_fill(p):
+    'inst : FILL NUMBER NUMBER'
+    p[0] = [(p[1], p[2], p[3], None, p.lineno(1))]
 
 def p_inst_nop(p):
     'inst : NOP'
@@ -300,7 +320,6 @@ def number_to_binary(num, length):
 
 def inst_to_binary(inst):
     opcode, p1, p2, p3, lineno = inst
-
     if opcode == "NOP":
         return "0000000000000000"
     elif opcode == "EI":
@@ -518,6 +537,29 @@ def inst_to_binary(inst):
         num_str = number_to_binary(p1, 8)
 
         return "111" + "0001" + "0" + num_str
+    elif opcode == "[WORD]":
+        num_str = number_to_binary(p1, 16);
+        reps = int(p2)
+        ret_str = "";
+        for i in range(0, reps):
+            ret_str += num_str
+            if(i != reps-1):
+                ret_str += "\n"
+        return ret_str
+
+    elif opcode == "[FILL]":
+        num_to_fill = number_to_binary(p1, 16);
+        fill_to = int(p2)
+        if fill_to < lineno:
+            print("LINE: " + str(lineno) + " can't fill to an address less than the current address")
+        ret_str = ""
+        for i in range(lineno, fill_to+1):
+            ret_str += num_to_fill
+            if (i != fill_to):
+                ret_str += "\n"
+        return ret_str
+
+
 
     else:
         print("DIDN'T DEAL WITH " + opcode)
@@ -538,9 +580,10 @@ to_print = ""
 for expr in parser:
     to_print += inst_to_binary(expr) + "\n"
 
+to_print = to_print[:-1]
 # Prints out the reserved memory locations
-for i in range(8):
-    print("0000000000001000")
+# for i in range(8):
+    # print("0000000000001000")
 
 # Prints out the binary form of the instructions
 print (to_print)
