@@ -96,8 +96,11 @@ tokens = (
     'REGISTER',
     'NUMBER',
     'WORD',
-    'FILL'
+    'FILL',
 )
+
+# def t_comment_bol(t):
+#     r'^--[^\n]*'
 
 def t_comment_eol_1(t):
     r'--[^\n]*'
@@ -133,11 +136,13 @@ def t_NUMBER(t):
     return t
 
 def t_WORD(t):
-    r'\[WORD\]'
+    r'(?i)\[WORD\]'
+    t.value = t.value.upper()
     return t
 
 def t_FILL(t):
-    r'\[FILL]'
+    r'(?i)\[FILL]'
+    t.value = t.value.upper()
     return t
 
 def t_newline(t):
@@ -145,9 +150,8 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 t_ignore = ' \t,'
-
 def t_error(t):
-    print("LINE: " + str(t.lexer.lineno) + "Illegal token '" + str(t.value[0])+ "'")
+    print("LINE: " + str(t.lexer.lineno) + " Illegal token '" + str(t.value[0])+ "'")
     exit(1)
 
 ###############################
@@ -318,7 +322,7 @@ def number_to_binary(num, length):
     else:
         return bin(num)[2:].rjust(length, '0')
 
-def inst_to_binary(inst):
+def inst_to_binary(inst, caddr):
     opcode, p1, p2, p3, lineno = inst
     if opcode == "NOP":
         return "0000000000000000"
@@ -550,16 +554,15 @@ def inst_to_binary(inst):
     elif opcode == "[FILL]":
         num_to_fill = number_to_binary(p1, 16);
         fill_to = int(p2)
-        if fill_to < lineno:
-            print("LINE: " + str(lineno) + " can't fill to an address less than the current address")
+        if fill_to < caddr:
+            print("LINE: " + str(lineno) + " can't fill to an address less or equal to than the current address")
+            exit(1)
         ret_str = ""
-        for i in range(lineno, fill_to+1):
+        for i in range(caddr+1, fill_to+1):
             ret_str += num_to_fill
             if (i != fill_to):
                 ret_str += "\n"
         return ret_str
-
-
 
     else:
         print("DIDN'T DEAL WITH " + opcode)
@@ -572,13 +575,17 @@ def inst_to_binary(inst):
 
 lexer = lex.lex()
 input_file = open(sys.argv[1], 'r')
+
 lexer.input(input_file.read())
+
 parser = yacc.yacc()
 parser = yacc.parse(lexer=lexer)
 
 to_print = ""
+caddr = 0
 for expr in parser:
-    to_print += inst_to_binary(expr) + "\n"
+    to_print += inst_to_binary(expr, caddr) + "\n"
+    caddr += 1
 
 to_print = to_print[:-1]
 # Prints out the reserved memory locations
