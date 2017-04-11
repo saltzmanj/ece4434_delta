@@ -1,0 +1,8 @@
+[REF] .main
+[WORD] 0x0000, 5
+
+.main:
+	ST R11, R14, 0x00
+	MOV R11, R2
+	BR .main
+	
