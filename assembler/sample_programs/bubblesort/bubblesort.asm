@@ -1,0 +1,17 @@
+-- Bubblesort Algorithm
+[WORD] 16, 1
+[FILL] 0x0000, 16
+
+[WORD] 0x0002, 1 -- Address 16
+[WORD] 0x0007, 1
+[WORD] 0x0005, 1
+[WORD] 0x0008, 1
+[WORD] 0x0003, 1
+[WORD] 0x0001, 1
+[WORD] 0x0006, 1
+[WORD] 0x0009, 1
+[WORD] 0x0004, 1
+
+[FILL] 0x0000, 32
+-- ADDRESS 32
+

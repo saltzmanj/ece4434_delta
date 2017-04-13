@@ -325,11 +325,11 @@ def number_to_binary(num, length):
 def inst_to_binary(inst, caddr):
     opcode, p1, p2, p3, lineno = inst
     if opcode == "NOP":
-        return "0000000000000000"
+        return ["0000000000000000", 1]
     elif opcode == "EI":
-        return "0000000000001001"
+        return ["0000000000001001", 1]
     elif opcode == "DI":
-        return "0000000000001000"
+        return ["0000000000001000", 1]
     elif opcode == "SWI":
         if int(p1) < 0 or int(p1) > 7:
             print("LINE: " + str(lineno) + " Invalid Integer");
@@ -337,9 +337,9 @@ def inst_to_binary(inst, caddr):
 
         num_str = number_to_binary(p1, 3)
 
-        return "0000000000010" + num_str
+        return ["0000000000010" + num_str, 1]
     elif opcode == "USR":
-        return "0000000000011000"
+        return ["0000000000011000", 1]
     elif opcode == "LD":
         if int(p3) < 0 or int(p3) > 31:
             print("LINE: " + str(lineno) + " Invalid Integer");
@@ -350,7 +350,7 @@ def inst_to_binary(inst, caddr):
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "001" + r1 + r2 + num_str
+        return ["001" + r1 + r2 + num_str, 1]
     elif opcode == "ST":
         if int(p3) < 0 or int(p3) > 31:
             print("LINE: " + str(lineno) + " Invalid Integer");
@@ -361,13 +361,13 @@ def inst_to_binary(inst, caddr):
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "010" + r1 + r2 + num_str
+        return ["010" + r1 + r2 + num_str, 1]
 
     elif opcode == "MOV":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "011" + r1 + r2 + "00000"
+        return ["011" + r1 + r2 + "00000", 1]
 
     elif opcode == "LIL":
         if int(p2) < -128 or int(p2) > 127:
@@ -378,7 +378,7 @@ def inst_to_binary(inst, caddr):
 
         r1 = number_to_binary(int(p1[1:]), 4)
 
-        return "100" + r1 + "0" + num_str
+        return ["100" + r1 + "0" + num_str, 1]
 
     elif opcode == "LIH":
         if int(p2) < -128 or int(p2) > 127:
@@ -389,30 +389,30 @@ def inst_to_binary(inst, caddr):
 
         r1 = number_to_binary(int(p1[1:]), 4)
 
-        return "100" + r1 + "1" + num_str
+        return ["100" + r1 + "1" + num_str, 1]
     elif opcode == "ADD":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00000"
+        return ["101" + r1 + r2 + "00000", 1]
 
     elif opcode == "ADC":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00001"
+        return ["101" + r1 + r2 + "00001", 1]
 
     elif opcode == "SUB":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00010"
+        return ["101" + r1 + r2 + "00010", 1]
 
     elif opcode == "SBC":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00011"
+        return ["101" + r1 + r2 + "00011", 1]
 
     elif opcode == "AND":
         r1 = number_to_binary(int(p1[1:]), 4)
@@ -424,55 +424,54 @@ def inst_to_binary(inst, caddr):
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00101"
+        return ["101" + r1 + r2 + "00101", 1]
 
     elif opcode == "XOR":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00110"
-
+        return ["101" + r1 + r2 + "00110", 1]
     elif opcode == "NOT":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "00111"
+        return ["101" + r1 + r2 + "00111", 1]
 
     elif opcode == "SL":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01000"
+        return ["101" + r1 + r2 + "01000", 1]
 
     elif opcode == "SRL":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01001"
+        return ["101" + r1 + r2 + "01001", 1]
 
     elif opcode == "SRA":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01010"
+        return ["101" + r1 + r2 + "01010", 1]
 
     elif opcode == "RRA":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01110"
+        return ["101" + r1 + r2 + "01110", 1]
 
     elif opcode == "RR":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01101"
+        return ["101" + r1 + r2 + "01101", 1]
 
     elif opcode == "RL":
         r1 = number_to_binary(int(p1[1:]), 4)
         r2 = number_to_binary(int(p2[1:]), 4)
 
-        return "101" + r1 + r2 + "01100"
+        return ["101" + r1 + r2 + "01100", 1]
 
     elif opcode == "JMP":
         if p2 < -128 or p2 > 127:
@@ -483,7 +482,7 @@ def inst_to_binary(inst, caddr):
 
         r1 = number_to_binary(int(p1[1:]), 4)
 
-        return "110" + r1 + "0" + num_str
+        return ["110" + r1 + "0" + num_str, 1]
 
     elif opcode == "JAL":
         if p2 < -128 or p2 > 127:
@@ -494,7 +493,7 @@ def inst_to_binary(inst, caddr):
 
         r1 = number_to_binary(int(p1[1:]), 4)
 
-        return "110" + r1 + "1" + num_str
+        return ["110" + r1 + "1" + num_str, 1]
 
     elif opcode == "BR":
         if p1 < -128 or p1 > 127:
@@ -503,7 +502,7 @@ def inst_to_binary(inst, caddr):
 
         num_str = number_to_binary(p1, 8)
 
-        return "111" + "0000" + "0" + num_str
+        return ["111" + "0000" + "0" + num_str, 1]
 
     elif opcode == "BC":
         if p1 < -128 or p1 > 127:
@@ -512,7 +511,7 @@ def inst_to_binary(inst, caddr):
 
         num_str = number_to_binary(p1, 8)
 
-        return "111" + "1000" + "0" + num_str
+        return ["111" + "1000" + "0" + num_str,1]
 
     elif opcode == "BO":
         if p1 < -128 or p1 > 127:
@@ -521,8 +520,7 @@ def inst_to_binary(inst, caddr):
 
         num_str = number_to_binary(p1, 8)
 
-        return "111" + "0100" + "0" + num_str
-
+        return ["111" + "0100" + "0" + num_str, 1]
     elif opcode == "BN":
         if p1 < -128 or p1 > 127:
             print("LINE: " + str(lineno)) + " Invalid Integer";
@@ -531,7 +529,7 @@ def inst_to_binary(inst, caddr):
         num_str = number_to_binary(p1, 8)
         # print (inst)
 
-        return "111" + "0010" + "0" + num_str
+        return ["111" + "0010" + "0" + num_str, 1]
 
     elif opcode == "BZ":
         if p1 < -128 or p1 > 127:
@@ -540,7 +538,7 @@ def inst_to_binary(inst, caddr):
 
         num_str = number_to_binary(p1, 8)
 
-        return "111" + "0001" + "0" + num_str
+        return ["111" + "0001" + "0" + num_str, 1]
     elif opcode == "[WORD]":
         num_str = number_to_binary(p1, 16);
         reps = int(p2)
@@ -549,7 +547,7 @@ def inst_to_binary(inst, caddr):
             ret_str += num_str
             if(i != reps-1):
                 ret_str += "\n"
-        return ret_str
+        return [ret_str, 1]
 
     elif opcode == "[FILL]":
         num_to_fill = number_to_binary(p1, 16);
@@ -562,7 +560,7 @@ def inst_to_binary(inst, caddr):
             ret_str += num_to_fill
             if (i != fill_to):
                 ret_str += "\n"
-        return ret_str
+        return [ret_str, (fill_to + 1 - caddr - 1)]
 
     else:
         print("DIDN'T DEAL WITH " + opcode)
@@ -584,8 +582,9 @@ parser = yacc.parse(lexer=lexer)
 to_print = ""
 caddr = 0
 for expr in parser:
-    to_print += inst_to_binary(expr, caddr) + "\n"
-    caddr += 1
+    result = inst_to_binary(expr, caddr)
+    to_print += result[0] + "\n"
+    caddr += result[1]
 
 to_print = to_print[:-1]
 # Prints out the reserved memory locations
