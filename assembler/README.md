@@ -24,21 +24,23 @@ Here's some sample code to get a feel for it.
 -- Perform a*b via repeated addition of b
 [WORD] 16, 1    -- First line should be the address of the first code instruction
 [WORD] 0x0000, 1
-[WORD] 0x0004, 1 -- Memory location of a, 0x0001
-[WORD] 0x0006, 1 -- Memory location of b, 0x0002
-[WORD] 0x0000, 1 -- Memory location of a*b, after algorithm, 0x0003
+[WORD] 0x0004, 1 -- Memory location holding a
+[WORD] 0x0006, 1 -- Memory location holding b
+[WORD] 0x0000, 1 -- Memory location holding a*b
 [FILL] 0xFFFF, 16 -- Fill up to address 16
 
-LIL R15, 0x01 	-- Use R15 as base register; this is address 16
-LIL R2, 0x01 	-- R2 const 1
-LIL R4, 0x00 	-- R4 as accumulator
+LIL R15, 0x01 	-- Use R15 as base register
+LIL R2, 0x01  	-- R2 const 1
 
-LD R5, R15, 0x01 -- Load b into R5
+LD R3, R15, 0x01  --Load a into R3
+XOR R4, R4 	      -- R4 is accumulator
 
-ADD R4, R4 		-- Accumulate
+LD R5, R15, 0x2 -- Load b into R5
+
+ADD R4, R3 		-- Accumulate
 SUB R5, R2 		-- Subtract 1 from R5
-BZ 2 			-- Branch to end if we're done
-BR -3			-- otherwise, branch back to the add
+BZ 2 			    -- Branch to end if we're done
+BR -3			    -- otherwise, branch back to the add
 
 ST R4, R15, 0x02 -- Store the result in memory
 
