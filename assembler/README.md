@@ -22,6 +22,7 @@ Here's some sample code to get a feel for it.
 
 ```
 -- Perform a*b via repeated addition of b
+[WORD] 16, 1    -- First line should be the address of the first code instruction
 [WORD] 0x0000, 1
 [WORD] 0x0004, 1 -- Memory location of a, 0x0001
 [WORD] 0x0006, 1 -- Memory location of b, 0x0002
