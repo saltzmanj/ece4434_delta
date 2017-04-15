@@ -39,7 +39,8 @@ opcodes = [
     'BN',
     'BZ',
     '[WORD]',
-    '[FILL]'
+    '[FILL]',
+    'CHK'
 ]
 
 registers = [
@@ -97,10 +98,22 @@ tokens = (
     'NUMBER',
     'WORD',
     'FILL',
+    'CHK_MACRO',
 )
 
-# def t_comment_bol(t):
-#     r'^--[^\n]*'
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def t_CHK_MACRO(t):
+    r'INST_CHECK'
 
 def t_comment_eol_1(t):
     r'--[^\n]*'
@@ -116,13 +129,16 @@ def t_opcode_register(t):
     if t.value.upper() in opcodes:
         t.type = t.value.upper()
         t.value = t.value.upper()
-    elif t.value.upper() in registers:
+    elif t.value.upper() in register_aliases:
         t.type = 'REGISTER'
         t.value = t.value.upper()
     else:
-        print("LINE: " + str(t.lexer.lineno) + " Invalid Opcode Or register name \'" + str(t.value) + "'")
+        print(bcolors.FAIL + "Syntax Error (line " + \
+            str(t.lexer.lineno)+ "): " + bcolors.ENDC + \
+            "Invalid opcode " + bcolors.BOLD + t.value)
         exit(1)
     return t
+
 
 def t_number_hex(t):
     r'(\-)?0x[0-9a-fA-F]+'
@@ -561,6 +577,7 @@ def inst_to_binary(inst, caddr):
             if (i != fill_to):
                 ret_str += "\n"
         return [ret_str, (fill_to + 1 - caddr - 1)]
+    elif opcode == ""
 
     else:
         print("DIDN'T DEAL WITH " + opcode)

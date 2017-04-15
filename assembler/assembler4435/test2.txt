@@ -1,0 +1,9 @@
+[WORD] 16, 1
+[FILL] 0x0000, 8 
+LD rax, rdi, 0x03
+ST R2, R1, 0x0F
+LIL r2, 0xFF
+LIH r1, 0xEF
+ADD rax, rdi
+SL rdi, rdi
+[FILL] 0xFFFF, 20

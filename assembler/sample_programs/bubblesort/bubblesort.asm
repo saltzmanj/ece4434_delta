@@ -2,7 +2,7 @@
 [WORD] 16, 1
 [FILL] 0x0000, 16
 
-[WORD] 0x0002, 1 -- Address 16
+[WORD] 0x0002, 1 ; Address 16
 [WORD] 0x0007, 1
 [WORD] 0x0005, 1
 [WORD] 0x0008, 1
@@ -14,4 +14,4 @@
 
 [FILL] 0x0000, 32
 -- ADDRESS 32
-
+LD rax, R14, 0x03
