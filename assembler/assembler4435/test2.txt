@@ -7,3 +7,4 @@ LIH r1, 0xEF
 ADD rax, rdi
 SL rdi, rdi
 [FILL] 0xFFFF, 20
+CHK INST_CHECK, 2

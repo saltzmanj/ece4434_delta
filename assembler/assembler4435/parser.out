@@ -1,10 +1,5 @@
 Created by PLY version 3.10 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    CHK_MACRO
-    CHK
-
 Grammar
 
 Rule 0     S' -> program
@@ -44,6 +39,7 @@ Rule 33    inst -> BC NUMBER
 Rule 34    inst -> BO NUMBER
 Rule 35    inst -> BN NUMBER
 Rule 36    inst -> BZ NUMBER
+Rule 37    inst -> CHK CHK_MACRO NUMBER
 
 Terminals, with rules where they appear
 
@@ -55,8 +51,8 @@ BN                   : 35
 BO                   : 34
 BR                   : 32
 BZ                   : 36
-CHK                  : 
-CHK_MACRO            : 
+CHK                  : 37
+CHK_MACRO            : 37
 DI                   : 8
 EI                   : 7
 FILL                 : 5
@@ -68,7 +64,7 @@ LIL                  : 14
 MOV                  : 13
 NOP                  : 6
 NOT                  : 23
-NUMBER               : 4 4 5 5 9 11 12 14 15 30 31 32 33 34 35 36
+NUMBER               : 4 4 5 5 9 11 12 14 15 30 31 32 33 34 35 36 37
 OR                   : 21
 REGISTER             : 11 11 12 12 13 13 14 15 16 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 26 27 27 28 28 29 29 30 31
 RL                   : 29
@@ -131,127 +127,159 @@ state 0
     (34) inst -> . BO NUMBER
     (35) inst -> . BN NUMBER
     (36) inst -> . BZ NUMBER
+    (37) inst -> . CHK CHK_MACRO NUMBER
 
-    WORD            shift and go to state 3
-    FILL            shift and go to state 12
-    NOP             shift and go to state 28
-    EI              shift and go to state 8
-    DI              shift and go to state 15
-    SWI             shift and go to state 11
-    USR             shift and go to state 7
-    LD              shift and go to state 33
-    ST              shift and go to state 18
-    MOV             shift and go to state 35
-    LIL             shift and go to state 27
-    LIH             shift and go to state 6
+    WORD            shift and go to state 23
+    FILL            shift and go to state 5
+    NOP             shift and go to state 33
+    EI              shift and go to state 17
+    DI              shift and go to state 30
+    SWI             shift and go to state 12
+    USR             shift and go to state 19
+    LD              shift and go to state 20
+    ST              shift and go to state 32
+    MOV             shift and go to state 26
+    LIL             shift and go to state 36
+    LIH             shift and go to state 34
     ADD             shift and go to state 25
-    ADC             shift and go to state 24
-    SUB             shift and go to state 10
-    SBC             shift and go to state 16
-    AND             shift and go to state 9
-    OR              shift and go to state 17
-    XOR             shift and go to state 20
-    NOT             shift and go to state 22
-    SL              shift and go to state 5
-    SRL             shift and go to state 19
-    SRA             shift and go to state 30
-    RRA             shift and go to state 13
-    RR              shift and go to state 34
-    RL              shift and go to state 2
-    JMP             shift and go to state 4
-    JAL             shift and go to state 1
-    BR              shift and go to state 29
-    BC              shift and go to state 23
-    BO              shift and go to state 21
-    BN              shift and go to state 32
-    BZ              shift and go to state 26
+    ADC             shift and go to state 2
+    SUB             shift and go to state 18
+    SBC             shift and go to state 15
+    AND             shift and go to state 14
+    OR              shift and go to state 1
+    XOR             shift and go to state 16
+    NOT             shift and go to state 27
+    SL              shift and go to state 6
+    SRL             shift and go to state 29
+    SRA             shift and go to state 11
+    RRA             shift and go to state 7
+    RR              shift and go to state 13
+    RL              shift and go to state 10
+    JMP             shift and go to state 28
+    JAL             shift and go to state 8
+    BR              shift and go to state 3
+    BC              shift and go to state 31
+    BO              shift and go to state 4
+    BN              shift and go to state 9
+    BZ              shift and go to state 35
+    CHK             shift and go to state 22
 
-    program                        shift and go to state 31
-    inst                           shift and go to state 14
+    program                        shift and go to state 21
+    inst                           shift and go to state 24
 
 state 1
 
-    (31) inst -> JAL . REGISTER NUMBER
-
-    REGISTER        shift and go to state 36
-
-
-state 2
-
-    (29) inst -> RL . REGISTER REGISTER
+    (21) inst -> OR . REGISTER REGISTER
 
     REGISTER        shift and go to state 37
 
 
+state 2
+
+    (17) inst -> ADC . REGISTER REGISTER
+
+    REGISTER        shift and go to state 38
+
+
 state 3
 
-    (4) inst -> WORD . NUMBER NUMBER
+    (32) inst -> BR . NUMBER
 
-    NUMBER          shift and go to state 38
+    NUMBER          shift and go to state 39
 
 
 state 4
 
-    (30) inst -> JMP . REGISTER NUMBER
+    (34) inst -> BO . NUMBER
 
-    REGISTER        shift and go to state 39
+    NUMBER          shift and go to state 40
 
 
 state 5
 
-    (24) inst -> SL . REGISTER REGISTER
+    (5) inst -> FILL . NUMBER NUMBER
 
-    REGISTER        shift and go to state 40
+    NUMBER          shift and go to state 41
 
 
 state 6
 
-    (15) inst -> LIH . REGISTER NUMBER
+    (24) inst -> SL . REGISTER REGISTER
 
-    REGISTER        shift and go to state 41
+    REGISTER        shift and go to state 42
 
 
 state 7
 
-    (10) inst -> USR .
+    (27) inst -> RRA . REGISTER REGISTER
 
-    WORD            reduce using rule 10 (inst -> USR .)
-    FILL            reduce using rule 10 (inst -> USR .)
-    NOP             reduce using rule 10 (inst -> USR .)
-    EI              reduce using rule 10 (inst -> USR .)
-    DI              reduce using rule 10 (inst -> USR .)
-    SWI             reduce using rule 10 (inst -> USR .)
-    USR             reduce using rule 10 (inst -> USR .)
-    LD              reduce using rule 10 (inst -> USR .)
-    ST              reduce using rule 10 (inst -> USR .)
-    MOV             reduce using rule 10 (inst -> USR .)
-    LIL             reduce using rule 10 (inst -> USR .)
-    LIH             reduce using rule 10 (inst -> USR .)
-    ADD             reduce using rule 10 (inst -> USR .)
-    ADC             reduce using rule 10 (inst -> USR .)
-    SUB             reduce using rule 10 (inst -> USR .)
-    SBC             reduce using rule 10 (inst -> USR .)
-    AND             reduce using rule 10 (inst -> USR .)
-    OR              reduce using rule 10 (inst -> USR .)
-    XOR             reduce using rule 10 (inst -> USR .)
-    NOT             reduce using rule 10 (inst -> USR .)
-    SL              reduce using rule 10 (inst -> USR .)
-    SRL             reduce using rule 10 (inst -> USR .)
-    SRA             reduce using rule 10 (inst -> USR .)
-    RRA             reduce using rule 10 (inst -> USR .)
-    RR              reduce using rule 10 (inst -> USR .)
-    RL              reduce using rule 10 (inst -> USR .)
-    JMP             reduce using rule 10 (inst -> USR .)
-    JAL             reduce using rule 10 (inst -> USR .)
-    BR              reduce using rule 10 (inst -> USR .)
-    BC              reduce using rule 10 (inst -> USR .)
-    BO              reduce using rule 10 (inst -> USR .)
-    BN              reduce using rule 10 (inst -> USR .)
-    BZ              reduce using rule 10 (inst -> USR .)
-    $end            reduce using rule 10 (inst -> USR .)
+    REGISTER        shift and go to state 43
 
 
 state 8
+
+    (31) inst -> JAL . REGISTER NUMBER
+
+    REGISTER        shift and go to state 44
+
+
+state 9
+
+    (35) inst -> BN . NUMBER
+
+    NUMBER          shift and go to state 45
+
+
+state 10
+
+    (29) inst -> RL . REGISTER REGISTER
+
+    REGISTER        shift and go to state 46
+
+
+state 11
+
+    (26) inst -> SRA . REGISTER REGISTER
+
+    REGISTER        shift and go to state 47
+
+
+state 12
+
+    (9) inst -> SWI . NUMBER
+
+    NUMBER          shift and go to state 48
+
+
+state 13
+
+    (28) inst -> RR . REGISTER REGISTER
+
+    REGISTER        shift and go to state 49
+
+
+state 14
+
+    (20) inst -> AND . REGISTER REGISTER
+
+    REGISTER        shift and go to state 50
+
+
+state 15
+
+    (19) inst -> SBC . REGISTER REGISTER
+
+    REGISTER        shift and go to state 51
+
+
+state 16
+
+    (22) inst -> XOR . REGISTER REGISTER
+
+    REGISTER        shift and go to state 52
+
+
+state 17
 
     (7) inst -> EI .
 
@@ -288,45 +316,86 @@ state 8
     BO              reduce using rule 7 (inst -> EI .)
     BN              reduce using rule 7 (inst -> EI .)
     BZ              reduce using rule 7 (inst -> EI .)
+    CHK             reduce using rule 7 (inst -> EI .)
     $end            reduce using rule 7 (inst -> EI .)
 
 
-state 9
-
-    (20) inst -> AND . REGISTER REGISTER
-
-    REGISTER        shift and go to state 42
-
-
-state 10
+state 18
 
     (18) inst -> SUB . REGISTER REGISTER
 
-    REGISTER        shift and go to state 43
+    REGISTER        shift and go to state 53
 
 
-state 11
+state 19
 
-    (9) inst -> SWI . NUMBER
+    (10) inst -> USR .
 
-    NUMBER          shift and go to state 44
+    WORD            reduce using rule 10 (inst -> USR .)
+    FILL            reduce using rule 10 (inst -> USR .)
+    NOP             reduce using rule 10 (inst -> USR .)
+    EI              reduce using rule 10 (inst -> USR .)
+    DI              reduce using rule 10 (inst -> USR .)
+    SWI             reduce using rule 10 (inst -> USR .)
+    USR             reduce using rule 10 (inst -> USR .)
+    LD              reduce using rule 10 (inst -> USR .)
+    ST              reduce using rule 10 (inst -> USR .)
+    MOV             reduce using rule 10 (inst -> USR .)
+    LIL             reduce using rule 10 (inst -> USR .)
+    LIH             reduce using rule 10 (inst -> USR .)
+    ADD             reduce using rule 10 (inst -> USR .)
+    ADC             reduce using rule 10 (inst -> USR .)
+    SUB             reduce using rule 10 (inst -> USR .)
+    SBC             reduce using rule 10 (inst -> USR .)
+    AND             reduce using rule 10 (inst -> USR .)
+    OR              reduce using rule 10 (inst -> USR .)
+    XOR             reduce using rule 10 (inst -> USR .)
+    NOT             reduce using rule 10 (inst -> USR .)
+    SL              reduce using rule 10 (inst -> USR .)
+    SRL             reduce using rule 10 (inst -> USR .)
+    SRA             reduce using rule 10 (inst -> USR .)
+    RRA             reduce using rule 10 (inst -> USR .)
+    RR              reduce using rule 10 (inst -> USR .)
+    RL              reduce using rule 10 (inst -> USR .)
+    JMP             reduce using rule 10 (inst -> USR .)
+    JAL             reduce using rule 10 (inst -> USR .)
+    BR              reduce using rule 10 (inst -> USR .)
+    BC              reduce using rule 10 (inst -> USR .)
+    BO              reduce using rule 10 (inst -> USR .)
+    BN              reduce using rule 10 (inst -> USR .)
+    BZ              reduce using rule 10 (inst -> USR .)
+    CHK             reduce using rule 10 (inst -> USR .)
+    $end            reduce using rule 10 (inst -> USR .)
 
 
-state 12
+state 20
 
-    (5) inst -> FILL . NUMBER NUMBER
+    (11) inst -> LD . REGISTER REGISTER NUMBER
 
-    NUMBER          shift and go to state 45
-
-
-state 13
-
-    (27) inst -> RRA . REGISTER REGISTER
-
-    REGISTER        shift and go to state 46
+    REGISTER        shift and go to state 54
 
 
-state 14
+state 21
+
+    (0) S' -> program .
+
+
+
+state 22
+
+    (37) inst -> CHK . CHK_MACRO NUMBER
+
+    CHK_MACRO       shift and go to state 55
+
+
+state 23
+
+    (4) inst -> WORD . NUMBER NUMBER
+
+    NUMBER          shift and go to state 56
+
+
+state 24
 
     (1) program -> inst . instlist
     (2) instlist -> . inst instlist
@@ -364,46 +433,83 @@ state 14
     (34) inst -> . BO NUMBER
     (35) inst -> . BN NUMBER
     (36) inst -> . BZ NUMBER
+    (37) inst -> . CHK CHK_MACRO NUMBER
 
     $end            reduce using rule 3 (instlist -> .)
-    WORD            shift and go to state 3
-    FILL            shift and go to state 12
-    NOP             shift and go to state 28
-    EI              shift and go to state 8
-    DI              shift and go to state 15
-    SWI             shift and go to state 11
-    USR             shift and go to state 7
-    LD              shift and go to state 33
-    ST              shift and go to state 18
-    MOV             shift and go to state 35
-    LIL             shift and go to state 27
-    LIH             shift and go to state 6
+    WORD            shift and go to state 23
+    FILL            shift and go to state 5
+    NOP             shift and go to state 33
+    EI              shift and go to state 17
+    DI              shift and go to state 30
+    SWI             shift and go to state 12
+    USR             shift and go to state 19
+    LD              shift and go to state 20
+    ST              shift and go to state 32
+    MOV             shift and go to state 26
+    LIL             shift and go to state 36
+    LIH             shift and go to state 34
     ADD             shift and go to state 25
-    ADC             shift and go to state 24
-    SUB             shift and go to state 10
-    SBC             shift and go to state 16
-    AND             shift and go to state 9
-    OR              shift and go to state 17
-    XOR             shift and go to state 20
-    NOT             shift and go to state 22
-    SL              shift and go to state 5
-    SRL             shift and go to state 19
-    SRA             shift and go to state 30
-    RRA             shift and go to state 13
-    RR              shift and go to state 34
-    RL              shift and go to state 2
-    JMP             shift and go to state 4
-    JAL             shift and go to state 1
-    BR              shift and go to state 29
-    BC              shift and go to state 23
-    BO              shift and go to state 21
-    BN              shift and go to state 32
-    BZ              shift and go to state 26
+    ADC             shift and go to state 2
+    SUB             shift and go to state 18
+    SBC             shift and go to state 15
+    AND             shift and go to state 14
+    OR              shift and go to state 1
+    XOR             shift and go to state 16
+    NOT             shift and go to state 27
+    SL              shift and go to state 6
+    SRL             shift and go to state 29
+    SRA             shift and go to state 11
+    RRA             shift and go to state 7
+    RR              shift and go to state 13
+    RL              shift and go to state 10
+    JMP             shift and go to state 28
+    JAL             shift and go to state 8
+    BR              shift and go to state 3
+    BC              shift and go to state 31
+    BO              shift and go to state 4
+    BN              shift and go to state 9
+    BZ              shift and go to state 35
+    CHK             shift and go to state 22
 
-    inst                           shift and go to state 48
-    instlist                       shift and go to state 47
+    instlist                       shift and go to state 57
+    inst                           shift and go to state 58
 
-state 15
+state 25
+
+    (16) inst -> ADD . REGISTER REGISTER
+
+    REGISTER        shift and go to state 59
+
+
+state 26
+
+    (13) inst -> MOV . REGISTER REGISTER
+
+    REGISTER        shift and go to state 60
+
+
+state 27
+
+    (23) inst -> NOT . REGISTER REGISTER
+
+    REGISTER        shift and go to state 61
+
+
+state 28
+
+    (30) inst -> JMP . REGISTER NUMBER
+
+    REGISTER        shift and go to state 62
+
+
+state 29
+
+    (25) inst -> SRL . REGISTER REGISTER
+
+    REGISTER        shift and go to state 63
+
+
+state 30
 
     (8) inst -> DI .
 
@@ -440,94 +546,25 @@ state 15
     BO              reduce using rule 8 (inst -> DI .)
     BN              reduce using rule 8 (inst -> DI .)
     BZ              reduce using rule 8 (inst -> DI .)
+    CHK             reduce using rule 8 (inst -> DI .)
     $end            reduce using rule 8 (inst -> DI .)
 
 
-state 16
-
-    (19) inst -> SBC . REGISTER REGISTER
-
-    REGISTER        shift and go to state 49
-
-
-state 17
-
-    (21) inst -> OR . REGISTER REGISTER
-
-    REGISTER        shift and go to state 50
-
-
-state 18
-
-    (12) inst -> ST . REGISTER REGISTER NUMBER
-
-    REGISTER        shift and go to state 51
-
-
-state 19
-
-    (25) inst -> SRL . REGISTER REGISTER
-
-    REGISTER        shift and go to state 52
-
-
-state 20
-
-    (22) inst -> XOR . REGISTER REGISTER
-
-    REGISTER        shift and go to state 53
-
-
-state 21
-
-    (34) inst -> BO . NUMBER
-
-    NUMBER          shift and go to state 54
-
-
-state 22
-
-    (23) inst -> NOT . REGISTER REGISTER
-
-    REGISTER        shift and go to state 55
-
-
-state 23
+state 31
 
     (33) inst -> BC . NUMBER
 
-    NUMBER          shift and go to state 56
+    NUMBER          shift and go to state 64
 
 
-state 24
+state 32
 
-    (17) inst -> ADC . REGISTER REGISTER
+    (12) inst -> ST . REGISTER REGISTER NUMBER
 
-    REGISTER        shift and go to state 57
-
-
-state 25
-
-    (16) inst -> ADD . REGISTER REGISTER
-
-    REGISTER        shift and go to state 58
+    REGISTER        shift and go to state 65
 
 
-state 26
-
-    (36) inst -> BZ . NUMBER
-
-    NUMBER          shift and go to state 59
-
-
-state 27
-
-    (14) inst -> LIL . REGISTER NUMBER
-
-    REGISTER        shift and go to state 60
-
-
-state 28
+state 33
 
     (6) inst -> NOP .
 
@@ -564,114 +601,211 @@ state 28
     BO              reduce using rule 6 (inst -> NOP .)
     BN              reduce using rule 6 (inst -> NOP .)
     BZ              reduce using rule 6 (inst -> NOP .)
+    CHK             reduce using rule 6 (inst -> NOP .)
     $end            reduce using rule 6 (inst -> NOP .)
-
-
-state 29
-
-    (32) inst -> BR . NUMBER
-
-    NUMBER          shift and go to state 61
-
-
-state 30
-
-    (26) inst -> SRA . REGISTER REGISTER
-
-    REGISTER        shift and go to state 62
-
-
-state 31
-
-    (0) S' -> program .
-
-
-
-state 32
-
-    (35) inst -> BN . NUMBER
-
-    NUMBER          shift and go to state 63
-
-
-state 33
-
-    (11) inst -> LD . REGISTER REGISTER NUMBER
-
-    REGISTER        shift and go to state 64
 
 
 state 34
 
-    (28) inst -> RR . REGISTER REGISTER
-
-    REGISTER        shift and go to state 65
-
-
-state 35
-
-    (13) inst -> MOV . REGISTER REGISTER
+    (15) inst -> LIH . REGISTER NUMBER
 
     REGISTER        shift and go to state 66
 
 
-state 36
+state 35
 
-    (31) inst -> JAL REGISTER . NUMBER
+    (36) inst -> BZ . NUMBER
 
     NUMBER          shift and go to state 67
 
 
-state 37
+state 36
 
-    (29) inst -> RL REGISTER . REGISTER
+    (14) inst -> LIL . REGISTER NUMBER
 
     REGISTER        shift and go to state 68
 
 
+state 37
+
+    (21) inst -> OR REGISTER . REGISTER
+
+    REGISTER        shift and go to state 69
+
+
 state 38
 
-    (4) inst -> WORD NUMBER . NUMBER
+    (17) inst -> ADC REGISTER . REGISTER
 
-    NUMBER          shift and go to state 69
+    REGISTER        shift and go to state 70
 
 
 state 39
 
-    (30) inst -> JMP REGISTER . NUMBER
+    (32) inst -> BR NUMBER .
 
-    NUMBER          shift and go to state 70
+    WORD            reduce using rule 32 (inst -> BR NUMBER .)
+    FILL            reduce using rule 32 (inst -> BR NUMBER .)
+    NOP             reduce using rule 32 (inst -> BR NUMBER .)
+    EI              reduce using rule 32 (inst -> BR NUMBER .)
+    DI              reduce using rule 32 (inst -> BR NUMBER .)
+    SWI             reduce using rule 32 (inst -> BR NUMBER .)
+    USR             reduce using rule 32 (inst -> BR NUMBER .)
+    LD              reduce using rule 32 (inst -> BR NUMBER .)
+    ST              reduce using rule 32 (inst -> BR NUMBER .)
+    MOV             reduce using rule 32 (inst -> BR NUMBER .)
+    LIL             reduce using rule 32 (inst -> BR NUMBER .)
+    LIH             reduce using rule 32 (inst -> BR NUMBER .)
+    ADD             reduce using rule 32 (inst -> BR NUMBER .)
+    ADC             reduce using rule 32 (inst -> BR NUMBER .)
+    SUB             reduce using rule 32 (inst -> BR NUMBER .)
+    SBC             reduce using rule 32 (inst -> BR NUMBER .)
+    AND             reduce using rule 32 (inst -> BR NUMBER .)
+    OR              reduce using rule 32 (inst -> BR NUMBER .)
+    XOR             reduce using rule 32 (inst -> BR NUMBER .)
+    NOT             reduce using rule 32 (inst -> BR NUMBER .)
+    SL              reduce using rule 32 (inst -> BR NUMBER .)
+    SRL             reduce using rule 32 (inst -> BR NUMBER .)
+    SRA             reduce using rule 32 (inst -> BR NUMBER .)
+    RRA             reduce using rule 32 (inst -> BR NUMBER .)
+    RR              reduce using rule 32 (inst -> BR NUMBER .)
+    RL              reduce using rule 32 (inst -> BR NUMBER .)
+    JMP             reduce using rule 32 (inst -> BR NUMBER .)
+    JAL             reduce using rule 32 (inst -> BR NUMBER .)
+    BR              reduce using rule 32 (inst -> BR NUMBER .)
+    BC              reduce using rule 32 (inst -> BR NUMBER .)
+    BO              reduce using rule 32 (inst -> BR NUMBER .)
+    BN              reduce using rule 32 (inst -> BR NUMBER .)
+    BZ              reduce using rule 32 (inst -> BR NUMBER .)
+    CHK             reduce using rule 32 (inst -> BR NUMBER .)
+    $end            reduce using rule 32 (inst -> BR NUMBER .)
 
 
 state 40
 
-    (24) inst -> SL REGISTER . REGISTER
+    (34) inst -> BO NUMBER .
 
-    REGISTER        shift and go to state 71
+    WORD            reduce using rule 34 (inst -> BO NUMBER .)
+    FILL            reduce using rule 34 (inst -> BO NUMBER .)
+    NOP             reduce using rule 34 (inst -> BO NUMBER .)
+    EI              reduce using rule 34 (inst -> BO NUMBER .)
+    DI              reduce using rule 34 (inst -> BO NUMBER .)
+    SWI             reduce using rule 34 (inst -> BO NUMBER .)
+    USR             reduce using rule 34 (inst -> BO NUMBER .)
+    LD              reduce using rule 34 (inst -> BO NUMBER .)
+    ST              reduce using rule 34 (inst -> BO NUMBER .)
+    MOV             reduce using rule 34 (inst -> BO NUMBER .)
+    LIL             reduce using rule 34 (inst -> BO NUMBER .)
+    LIH             reduce using rule 34 (inst -> BO NUMBER .)
+    ADD             reduce using rule 34 (inst -> BO NUMBER .)
+    ADC             reduce using rule 34 (inst -> BO NUMBER .)
+    SUB             reduce using rule 34 (inst -> BO NUMBER .)
+    SBC             reduce using rule 34 (inst -> BO NUMBER .)
+    AND             reduce using rule 34 (inst -> BO NUMBER .)
+    OR              reduce using rule 34 (inst -> BO NUMBER .)
+    XOR             reduce using rule 34 (inst -> BO NUMBER .)
+    NOT             reduce using rule 34 (inst -> BO NUMBER .)
+    SL              reduce using rule 34 (inst -> BO NUMBER .)
+    SRL             reduce using rule 34 (inst -> BO NUMBER .)
+    SRA             reduce using rule 34 (inst -> BO NUMBER .)
+    RRA             reduce using rule 34 (inst -> BO NUMBER .)
+    RR              reduce using rule 34 (inst -> BO NUMBER .)
+    RL              reduce using rule 34 (inst -> BO NUMBER .)
+    JMP             reduce using rule 34 (inst -> BO NUMBER .)
+    JAL             reduce using rule 34 (inst -> BO NUMBER .)
+    BR              reduce using rule 34 (inst -> BO NUMBER .)
+    BC              reduce using rule 34 (inst -> BO NUMBER .)
+    BO              reduce using rule 34 (inst -> BO NUMBER .)
+    BN              reduce using rule 34 (inst -> BO NUMBER .)
+    BZ              reduce using rule 34 (inst -> BO NUMBER .)
+    CHK             reduce using rule 34 (inst -> BO NUMBER .)
+    $end            reduce using rule 34 (inst -> BO NUMBER .)
 
 
 state 41
 
-    (15) inst -> LIH REGISTER . NUMBER
+    (5) inst -> FILL NUMBER . NUMBER
 
-    NUMBER          shift and go to state 72
+    NUMBER          shift and go to state 71
 
 
 state 42
 
-    (20) inst -> AND REGISTER . REGISTER
+    (24) inst -> SL REGISTER . REGISTER
 
-    REGISTER        shift and go to state 73
+    REGISTER        shift and go to state 72
 
 
 state 43
 
-    (18) inst -> SUB REGISTER . REGISTER
+    (27) inst -> RRA REGISTER . REGISTER
 
-    REGISTER        shift and go to state 74
+    REGISTER        shift and go to state 73
 
 
 state 44
+
+    (31) inst -> JAL REGISTER . NUMBER
+
+    NUMBER          shift and go to state 74
+
+
+state 45
+
+    (35) inst -> BN NUMBER .
+
+    WORD            reduce using rule 35 (inst -> BN NUMBER .)
+    FILL            reduce using rule 35 (inst -> BN NUMBER .)
+    NOP             reduce using rule 35 (inst -> BN NUMBER .)
+    EI              reduce using rule 35 (inst -> BN NUMBER .)
+    DI              reduce using rule 35 (inst -> BN NUMBER .)
+    SWI             reduce using rule 35 (inst -> BN NUMBER .)
+    USR             reduce using rule 35 (inst -> BN NUMBER .)
+    LD              reduce using rule 35 (inst -> BN NUMBER .)
+    ST              reduce using rule 35 (inst -> BN NUMBER .)
+    MOV             reduce using rule 35 (inst -> BN NUMBER .)
+    LIL             reduce using rule 35 (inst -> BN NUMBER .)
+    LIH             reduce using rule 35 (inst -> BN NUMBER .)
+    ADD             reduce using rule 35 (inst -> BN NUMBER .)
+    ADC             reduce using rule 35 (inst -> BN NUMBER .)
+    SUB             reduce using rule 35 (inst -> BN NUMBER .)
+    SBC             reduce using rule 35 (inst -> BN NUMBER .)
+    AND             reduce using rule 35 (inst -> BN NUMBER .)
+    OR              reduce using rule 35 (inst -> BN NUMBER .)
+    XOR             reduce using rule 35 (inst -> BN NUMBER .)
+    NOT             reduce using rule 35 (inst -> BN NUMBER .)
+    SL              reduce using rule 35 (inst -> BN NUMBER .)
+    SRL             reduce using rule 35 (inst -> BN NUMBER .)
+    SRA             reduce using rule 35 (inst -> BN NUMBER .)
+    RRA             reduce using rule 35 (inst -> BN NUMBER .)
+    RR              reduce using rule 35 (inst -> BN NUMBER .)
+    RL              reduce using rule 35 (inst -> BN NUMBER .)
+    JMP             reduce using rule 35 (inst -> BN NUMBER .)
+    JAL             reduce using rule 35 (inst -> BN NUMBER .)
+    BR              reduce using rule 35 (inst -> BN NUMBER .)
+    BC              reduce using rule 35 (inst -> BN NUMBER .)
+    BO              reduce using rule 35 (inst -> BN NUMBER .)
+    BN              reduce using rule 35 (inst -> BN NUMBER .)
+    BZ              reduce using rule 35 (inst -> BN NUMBER .)
+    CHK             reduce using rule 35 (inst -> BN NUMBER .)
+    $end            reduce using rule 35 (inst -> BN NUMBER .)
+
+
+state 46
+
+    (29) inst -> RL REGISTER . REGISTER
+
+    REGISTER        shift and go to state 75
+
+
+state 47
+
+    (26) inst -> SRA REGISTER . REGISTER
+
+    REGISTER        shift and go to state 76
+
+
+state 48
 
     (9) inst -> SWI NUMBER .
 
@@ -708,31 +842,74 @@ state 44
     BO              reduce using rule 9 (inst -> SWI NUMBER .)
     BN              reduce using rule 9 (inst -> SWI NUMBER .)
     BZ              reduce using rule 9 (inst -> SWI NUMBER .)
+    CHK             reduce using rule 9 (inst -> SWI NUMBER .)
     $end            reduce using rule 9 (inst -> SWI NUMBER .)
 
 
-state 45
+state 49
 
-    (5) inst -> FILL NUMBER . NUMBER
+    (28) inst -> RR REGISTER . REGISTER
 
-    NUMBER          shift and go to state 75
-
-
-state 46
-
-    (27) inst -> RRA REGISTER . REGISTER
-
-    REGISTER        shift and go to state 76
+    REGISTER        shift and go to state 77
 
 
-state 47
+state 50
+
+    (20) inst -> AND REGISTER . REGISTER
+
+    REGISTER        shift and go to state 78
+
+
+state 51
+
+    (19) inst -> SBC REGISTER . REGISTER
+
+    REGISTER        shift and go to state 79
+
+
+state 52
+
+    (22) inst -> XOR REGISTER . REGISTER
+
+    REGISTER        shift and go to state 80
+
+
+state 53
+
+    (18) inst -> SUB REGISTER . REGISTER
+
+    REGISTER        shift and go to state 81
+
+
+state 54
+
+    (11) inst -> LD REGISTER . REGISTER NUMBER
+
+    REGISTER        shift and go to state 82
+
+
+state 55
+
+    (37) inst -> CHK CHK_MACRO . NUMBER
+
+    NUMBER          shift and go to state 83
+
+
+state 56
+
+    (4) inst -> WORD NUMBER . NUMBER
+
+    NUMBER          shift and go to state 84
+
+
+state 57
 
     (1) program -> inst instlist .
 
     $end            reduce using rule 1 (program -> inst instlist .)
 
 
-state 48
+state 58
 
     (2) instlist -> inst . instlist
     (2) instlist -> . inst instlist
@@ -770,128 +947,83 @@ state 48
     (34) inst -> . BO NUMBER
     (35) inst -> . BN NUMBER
     (36) inst -> . BZ NUMBER
+    (37) inst -> . CHK CHK_MACRO NUMBER
 
     $end            reduce using rule 3 (instlist -> .)
-    WORD            shift and go to state 3
-    FILL            shift and go to state 12
-    NOP             shift and go to state 28
-    EI              shift and go to state 8
-    DI              shift and go to state 15
-    SWI             shift and go to state 11
-    USR             shift and go to state 7
-    LD              shift and go to state 33
-    ST              shift and go to state 18
-    MOV             shift and go to state 35
-    LIL             shift and go to state 27
-    LIH             shift and go to state 6
+    WORD            shift and go to state 23
+    FILL            shift and go to state 5
+    NOP             shift and go to state 33
+    EI              shift and go to state 17
+    DI              shift and go to state 30
+    SWI             shift and go to state 12
+    USR             shift and go to state 19
+    LD              shift and go to state 20
+    ST              shift and go to state 32
+    MOV             shift and go to state 26
+    LIL             shift and go to state 36
+    LIH             shift and go to state 34
     ADD             shift and go to state 25
-    ADC             shift and go to state 24
-    SUB             shift and go to state 10
-    SBC             shift and go to state 16
-    AND             shift and go to state 9
-    OR              shift and go to state 17
-    XOR             shift and go to state 20
-    NOT             shift and go to state 22
-    SL              shift and go to state 5
-    SRL             shift and go to state 19
-    SRA             shift and go to state 30
-    RRA             shift and go to state 13
-    RR              shift and go to state 34
-    RL              shift and go to state 2
-    JMP             shift and go to state 4
-    JAL             shift and go to state 1
-    BR              shift and go to state 29
-    BC              shift and go to state 23
-    BO              shift and go to state 21
-    BN              shift and go to state 32
-    BZ              shift and go to state 26
+    ADC             shift and go to state 2
+    SUB             shift and go to state 18
+    SBC             shift and go to state 15
+    AND             shift and go to state 14
+    OR              shift and go to state 1
+    XOR             shift and go to state 16
+    NOT             shift and go to state 27
+    SL              shift and go to state 6
+    SRL             shift and go to state 29
+    SRA             shift and go to state 11
+    RRA             shift and go to state 7
+    RR              shift and go to state 13
+    RL              shift and go to state 10
+    JMP             shift and go to state 28
+    JAL             shift and go to state 8
+    BR              shift and go to state 3
+    BC              shift and go to state 31
+    BO              shift and go to state 4
+    BN              shift and go to state 9
+    BZ              shift and go to state 35
+    CHK             shift and go to state 22
 
-    inst                           shift and go to state 48
-    instlist                       shift and go to state 77
+    instlist                       shift and go to state 85
+    inst                           shift and go to state 58
 
-state 49
+state 59
 
-    (19) inst -> SBC REGISTER . REGISTER
+    (16) inst -> ADD REGISTER . REGISTER
 
-    REGISTER        shift and go to state 78
-
-
-state 50
-
-    (21) inst -> OR REGISTER . REGISTER
-
-    REGISTER        shift and go to state 79
+    REGISTER        shift and go to state 86
 
 
-state 51
+state 60
 
-    (12) inst -> ST REGISTER . REGISTER NUMBER
+    (13) inst -> MOV REGISTER . REGISTER
 
-    REGISTER        shift and go to state 80
-
-
-state 52
-
-    (25) inst -> SRL REGISTER . REGISTER
-
-    REGISTER        shift and go to state 81
+    REGISTER        shift and go to state 87
 
 
-state 53
-
-    (22) inst -> XOR REGISTER . REGISTER
-
-    REGISTER        shift and go to state 82
-
-
-state 54
-
-    (34) inst -> BO NUMBER .
-
-    WORD            reduce using rule 34 (inst -> BO NUMBER .)
-    FILL            reduce using rule 34 (inst -> BO NUMBER .)
-    NOP             reduce using rule 34 (inst -> BO NUMBER .)
-    EI              reduce using rule 34 (inst -> BO NUMBER .)
-    DI              reduce using rule 34 (inst -> BO NUMBER .)
-    SWI             reduce using rule 34 (inst -> BO NUMBER .)
-    USR             reduce using rule 34 (inst -> BO NUMBER .)
-    LD              reduce using rule 34 (inst -> BO NUMBER .)
-    ST              reduce using rule 34 (inst -> BO NUMBER .)
-    MOV             reduce using rule 34 (inst -> BO NUMBER .)
-    LIL             reduce using rule 34 (inst -> BO NUMBER .)
-    LIH             reduce using rule 34 (inst -> BO NUMBER .)
-    ADD             reduce using rule 34 (inst -> BO NUMBER .)
-    ADC             reduce using rule 34 (inst -> BO NUMBER .)
-    SUB             reduce using rule 34 (inst -> BO NUMBER .)
-    SBC             reduce using rule 34 (inst -> BO NUMBER .)
-    AND             reduce using rule 34 (inst -> BO NUMBER .)
-    OR              reduce using rule 34 (inst -> BO NUMBER .)
-    XOR             reduce using rule 34 (inst -> BO NUMBER .)
-    NOT             reduce using rule 34 (inst -> BO NUMBER .)
-    SL              reduce using rule 34 (inst -> BO NUMBER .)
-    SRL             reduce using rule 34 (inst -> BO NUMBER .)
-    SRA             reduce using rule 34 (inst -> BO NUMBER .)
-    RRA             reduce using rule 34 (inst -> BO NUMBER .)
-    RR              reduce using rule 34 (inst -> BO NUMBER .)
-    RL              reduce using rule 34 (inst -> BO NUMBER .)
-    JMP             reduce using rule 34 (inst -> BO NUMBER .)
-    JAL             reduce using rule 34 (inst -> BO NUMBER .)
-    BR              reduce using rule 34 (inst -> BO NUMBER .)
-    BC              reduce using rule 34 (inst -> BO NUMBER .)
-    BO              reduce using rule 34 (inst -> BO NUMBER .)
-    BN              reduce using rule 34 (inst -> BO NUMBER .)
-    BZ              reduce using rule 34 (inst -> BO NUMBER .)
-    $end            reduce using rule 34 (inst -> BO NUMBER .)
-
-
-state 55
+state 61
 
     (23) inst -> NOT REGISTER . REGISTER
 
-    REGISTER        shift and go to state 83
+    REGISTER        shift and go to state 88
 
 
-state 56
+state 62
+
+    (30) inst -> JMP REGISTER . NUMBER
+
+    NUMBER          shift and go to state 89
+
+
+state 63
+
+    (25) inst -> SRL REGISTER . REGISTER
+
+    REGISTER        shift and go to state 90
+
+
+state 64
 
     (33) inst -> BC NUMBER .
 
@@ -928,24 +1060,25 @@ state 56
     BO              reduce using rule 33 (inst -> BC NUMBER .)
     BN              reduce using rule 33 (inst -> BC NUMBER .)
     BZ              reduce using rule 33 (inst -> BC NUMBER .)
+    CHK             reduce using rule 33 (inst -> BC NUMBER .)
     $end            reduce using rule 33 (inst -> BC NUMBER .)
 
 
-state 57
+state 65
 
-    (17) inst -> ADC REGISTER . REGISTER
+    (12) inst -> ST REGISTER . REGISTER NUMBER
 
-    REGISTER        shift and go to state 84
-
-
-state 58
-
-    (16) inst -> ADD REGISTER . REGISTER
-
-    REGISTER        shift and go to state 85
+    REGISTER        shift and go to state 91
 
 
-state 59
+state 66
+
+    (15) inst -> LIH REGISTER . NUMBER
+
+    NUMBER          shift and go to state 92
+
+
+state 67
 
     (36) inst -> BZ NUMBER .
 
@@ -982,572 +1115,18 @@ state 59
     BO              reduce using rule 36 (inst -> BZ NUMBER .)
     BN              reduce using rule 36 (inst -> BZ NUMBER .)
     BZ              reduce using rule 36 (inst -> BZ NUMBER .)
+    CHK             reduce using rule 36 (inst -> BZ NUMBER .)
     $end            reduce using rule 36 (inst -> BZ NUMBER .)
-
-
-state 60
-
-    (14) inst -> LIL REGISTER . NUMBER
-
-    NUMBER          shift and go to state 86
-
-
-state 61
-
-    (32) inst -> BR NUMBER .
-
-    WORD            reduce using rule 32 (inst -> BR NUMBER .)
-    FILL            reduce using rule 32 (inst -> BR NUMBER .)
-    NOP             reduce using rule 32 (inst -> BR NUMBER .)
-    EI              reduce using rule 32 (inst -> BR NUMBER .)
-    DI              reduce using rule 32 (inst -> BR NUMBER .)
-    SWI             reduce using rule 32 (inst -> BR NUMBER .)
-    USR             reduce using rule 32 (inst -> BR NUMBER .)
-    LD              reduce using rule 32 (inst -> BR NUMBER .)
-    ST              reduce using rule 32 (inst -> BR NUMBER .)
-    MOV             reduce using rule 32 (inst -> BR NUMBER .)
-    LIL             reduce using rule 32 (inst -> BR NUMBER .)
-    LIH             reduce using rule 32 (inst -> BR NUMBER .)
-    ADD             reduce using rule 32 (inst -> BR NUMBER .)
-    ADC             reduce using rule 32 (inst -> BR NUMBER .)
-    SUB             reduce using rule 32 (inst -> BR NUMBER .)
-    SBC             reduce using rule 32 (inst -> BR NUMBER .)
-    AND             reduce using rule 32 (inst -> BR NUMBER .)
-    OR              reduce using rule 32 (inst -> BR NUMBER .)
-    XOR             reduce using rule 32 (inst -> BR NUMBER .)
-    NOT             reduce using rule 32 (inst -> BR NUMBER .)
-    SL              reduce using rule 32 (inst -> BR NUMBER .)
-    SRL             reduce using rule 32 (inst -> BR NUMBER .)
-    SRA             reduce using rule 32 (inst -> BR NUMBER .)
-    RRA             reduce using rule 32 (inst -> BR NUMBER .)
-    RR              reduce using rule 32 (inst -> BR NUMBER .)
-    RL              reduce using rule 32 (inst -> BR NUMBER .)
-    JMP             reduce using rule 32 (inst -> BR NUMBER .)
-    JAL             reduce using rule 32 (inst -> BR NUMBER .)
-    BR              reduce using rule 32 (inst -> BR NUMBER .)
-    BC              reduce using rule 32 (inst -> BR NUMBER .)
-    BO              reduce using rule 32 (inst -> BR NUMBER .)
-    BN              reduce using rule 32 (inst -> BR NUMBER .)
-    BZ              reduce using rule 32 (inst -> BR NUMBER .)
-    $end            reduce using rule 32 (inst -> BR NUMBER .)
-
-
-state 62
-
-    (26) inst -> SRA REGISTER . REGISTER
-
-    REGISTER        shift and go to state 87
-
-
-state 63
-
-    (35) inst -> BN NUMBER .
-
-    WORD            reduce using rule 35 (inst -> BN NUMBER .)
-    FILL            reduce using rule 35 (inst -> BN NUMBER .)
-    NOP             reduce using rule 35 (inst -> BN NUMBER .)
-    EI              reduce using rule 35 (inst -> BN NUMBER .)
-    DI              reduce using rule 35 (inst -> BN NUMBER .)
-    SWI             reduce using rule 35 (inst -> BN NUMBER .)
-    USR             reduce using rule 35 (inst -> BN NUMBER .)
-    LD              reduce using rule 35 (inst -> BN NUMBER .)
-    ST              reduce using rule 35 (inst -> BN NUMBER .)
-    MOV             reduce using rule 35 (inst -> BN NUMBER .)
-    LIL             reduce using rule 35 (inst -> BN NUMBER .)
-    LIH             reduce using rule 35 (inst -> BN NUMBER .)
-    ADD             reduce using rule 35 (inst -> BN NUMBER .)
-    ADC             reduce using rule 35 (inst -> BN NUMBER .)
-    SUB             reduce using rule 35 (inst -> BN NUMBER .)
-    SBC             reduce using rule 35 (inst -> BN NUMBER .)
-    AND             reduce using rule 35 (inst -> BN NUMBER .)
-    OR              reduce using rule 35 (inst -> BN NUMBER .)
-    XOR             reduce using rule 35 (inst -> BN NUMBER .)
-    NOT             reduce using rule 35 (inst -> BN NUMBER .)
-    SL              reduce using rule 35 (inst -> BN NUMBER .)
-    SRL             reduce using rule 35 (inst -> BN NUMBER .)
-    SRA             reduce using rule 35 (inst -> BN NUMBER .)
-    RRA             reduce using rule 35 (inst -> BN NUMBER .)
-    RR              reduce using rule 35 (inst -> BN NUMBER .)
-    RL              reduce using rule 35 (inst -> BN NUMBER .)
-    JMP             reduce using rule 35 (inst -> BN NUMBER .)
-    JAL             reduce using rule 35 (inst -> BN NUMBER .)
-    BR              reduce using rule 35 (inst -> BN NUMBER .)
-    BC              reduce using rule 35 (inst -> BN NUMBER .)
-    BO              reduce using rule 35 (inst -> BN NUMBER .)
-    BN              reduce using rule 35 (inst -> BN NUMBER .)
-    BZ              reduce using rule 35 (inst -> BN NUMBER .)
-    $end            reduce using rule 35 (inst -> BN NUMBER .)
-
-
-state 64
-
-    (11) inst -> LD REGISTER . REGISTER NUMBER
-
-    REGISTER        shift and go to state 88
-
-
-state 65
-
-    (28) inst -> RR REGISTER . REGISTER
-
-    REGISTER        shift and go to state 89
-
-
-state 66
-
-    (13) inst -> MOV REGISTER . REGISTER
-
-    REGISTER        shift and go to state 90
-
-
-state 67
-
-    (31) inst -> JAL REGISTER NUMBER .
-
-    WORD            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    FILL            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    NOP             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    EI              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    DI              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SWI             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    USR             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    LD              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    ST              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    MOV             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    LIL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    LIH             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    ADD             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    ADC             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SUB             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SBC             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    AND             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    OR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    XOR             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    NOT             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SL              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SRL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    SRA             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    RRA             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    RR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    RL              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    JMP             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    JAL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    BR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    BC              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    BO              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    BN              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    BZ              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
-    $end            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
 
 
 state 68
 
-    (29) inst -> RL REGISTER REGISTER .
+    (14) inst -> LIL REGISTER . NUMBER
 
-    WORD            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    FILL            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    NOP             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    EI              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    DI              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SWI             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    USR             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    LD              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    ST              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    MOV             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    LIL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    LIH             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    ADD             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    ADC             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SUB             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SBC             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    AND             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    OR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    XOR             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    NOT             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SL              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SRL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    SRA             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    RRA             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    RR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    RL              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    JMP             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    JAL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    BR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    BC              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    BO              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    BN              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    BZ              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
-    $end            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    NUMBER          shift and go to state 93
 
 
 state 69
-
-    (4) inst -> WORD NUMBER NUMBER .
-
-    WORD            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    FILL            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    NOP             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    EI              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    DI              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SWI             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    USR             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    LD              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    ST              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    MOV             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    LIL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    LIH             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    ADD             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    ADC             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SUB             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SBC             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    AND             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    OR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    XOR             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    NOT             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SL              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SRL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    SRA             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    RRA             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    RR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    RL              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    JMP             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    JAL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    BR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    BC              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    BO              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    BN              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    BZ              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-    $end            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
-
-
-state 70
-
-    (30) inst -> JMP REGISTER NUMBER .
-
-    WORD            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    FILL            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    NOP             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    EI              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    DI              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SWI             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    USR             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    LD              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    ST              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    MOV             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    LIL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    LIH             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    ADD             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    ADC             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SUB             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SBC             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    AND             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    OR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    XOR             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    NOT             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SL              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SRL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    SRA             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    RRA             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    RR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    RL              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    JMP             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    JAL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    BR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    BC              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    BO              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    BN              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    BZ              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-    $end            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
-
-
-state 71
-
-    (24) inst -> SL REGISTER REGISTER .
-
-    WORD            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    FILL            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    NOP             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    EI              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    DI              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SWI             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    USR             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    LD              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    ST              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    MOV             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    LIL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    LIH             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    ADD             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    ADC             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SUB             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SBC             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    AND             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    OR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    XOR             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    NOT             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SL              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SRL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    SRA             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    RRA             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    RR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    RL              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    JMP             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    JAL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    BR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    BC              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    BO              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    BN              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    BZ              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-    $end            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
-
-
-state 72
-
-    (15) inst -> LIH REGISTER NUMBER .
-
-    WORD            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    FILL            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    NOP             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    EI              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    DI              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SWI             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    USR             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    LD              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    ST              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    MOV             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    LIL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    LIH             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    ADD             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    ADC             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SUB             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SBC             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    AND             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    OR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    XOR             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    NOT             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SL              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SRL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    SRA             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    RRA             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    RR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    RL              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    JMP             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    JAL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    BR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    BC              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    BO              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    BN              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    BZ              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-    $end            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
-
-
-state 73
-
-    (20) inst -> AND REGISTER REGISTER .
-
-    WORD            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    FILL            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    NOP             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    EI              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    DI              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SWI             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    USR             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    LD              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    ST              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    MOV             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    LIL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    LIH             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    ADD             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    ADC             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SUB             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SBC             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    AND             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    OR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    XOR             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    NOT             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SL              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SRL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    SRA             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    RRA             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    RR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    RL              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    JMP             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    JAL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    BR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    BC              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    BO              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    BN              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    BZ              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-    $end            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
-
-
-state 74
-
-    (18) inst -> SUB REGISTER REGISTER .
-
-    WORD            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    FILL            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    NOP             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    EI              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    DI              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SWI             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    USR             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    LD              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    ST              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    MOV             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    LIL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    LIH             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    ADD             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    ADC             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SUB             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SBC             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    AND             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    OR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    XOR             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    NOT             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SL              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SRL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    SRA             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    RRA             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    RR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    RL              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    JMP             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    JAL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    BR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    BC              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    BO              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    BN              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    BZ              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-    $end            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
-
-
-state 75
-
-    (5) inst -> FILL NUMBER NUMBER .
-
-    WORD            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    FILL            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    NOP             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    EI              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    DI              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SWI             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    USR             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    LD              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    ST              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    MOV             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    LIL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    LIH             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    ADD             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    ADC             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SUB             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SBC             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    AND             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    OR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    XOR             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    NOT             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SL              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SRL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    SRA             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    RRA             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    RR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    RL              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    JMP             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    JAL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    BR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    BC              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    BO              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    BN              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    BZ              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-    $end            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
-
-
-state 76
-
-    (27) inst -> RRA REGISTER REGISTER .
-
-    WORD            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    FILL            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    NOP             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    EI              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    DI              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SWI             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    USR             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    LD              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    ST              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    MOV             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    LIL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    LIH             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    ADD             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    ADC             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SUB             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SBC             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    AND             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    OR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    XOR             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    NOT             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SL              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SRL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    SRA             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    RRA             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    RR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    RL              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    JMP             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    JAL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    BR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    BC              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    BO              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    BN              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    BZ              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-    $end            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
-
-
-state 77
-
-    (2) instlist -> inst instlist .
-
-    $end            reduce using rule 2 (instlist -> inst instlist .)
-
-
-state 78
-
-    (19) inst -> SBC REGISTER REGISTER .
-
-    WORD            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    FILL            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    NOP             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    EI              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    DI              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SWI             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    USR             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    LD              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    ST              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    MOV             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    LIL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    LIH             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    ADD             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    ADC             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SUB             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SBC             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    AND             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    OR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    XOR             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    NOT             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SL              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SRL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    SRA             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    RRA             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    RR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    RL              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    JMP             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    JAL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    BR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    BC              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    BO              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    BN              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    BZ              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-    $end            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
-
-
-state 79
 
     (21) inst -> OR REGISTER REGISTER .
 
@@ -1584,137 +1163,11 @@ state 79
     BO              reduce using rule 21 (inst -> OR REGISTER REGISTER .)
     BN              reduce using rule 21 (inst -> OR REGISTER REGISTER .)
     BZ              reduce using rule 21 (inst -> OR REGISTER REGISTER .)
+    CHK             reduce using rule 21 (inst -> OR REGISTER REGISTER .)
     $end            reduce using rule 21 (inst -> OR REGISTER REGISTER .)
 
 
-state 80
-
-    (12) inst -> ST REGISTER REGISTER . NUMBER
-
-    NUMBER          shift and go to state 91
-
-
-state 81
-
-    (25) inst -> SRL REGISTER REGISTER .
-
-    WORD            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    FILL            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    NOP             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    EI              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    DI              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SWI             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    USR             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    LD              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    ST              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    MOV             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    LIL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    LIH             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    ADD             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    ADC             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SUB             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SBC             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    AND             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    OR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    XOR             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    NOT             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SL              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SRL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    SRA             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    RRA             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    RR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    RL              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    JMP             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    JAL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    BR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    BC              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    BO              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    BN              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    BZ              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-    $end            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
-
-
-state 82
-
-    (22) inst -> XOR REGISTER REGISTER .
-
-    WORD            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    FILL            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    NOP             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    EI              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    DI              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SWI             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    USR             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    LD              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    ST              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    MOV             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    LIL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    LIH             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    ADD             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    ADC             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SUB             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SBC             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    AND             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    OR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    XOR             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    NOT             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SL              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SRL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    SRA             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    RRA             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    RR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    RL              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    JMP             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    JAL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    BR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    BC              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    BO              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    BN              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    BZ              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-    $end            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
-
-
-state 83
-
-    (23) inst -> NOT REGISTER REGISTER .
-
-    WORD            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    FILL            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    NOP             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    EI              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    DI              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SWI             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    USR             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    LD              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    ST              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    MOV             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    LIL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    LIH             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    ADD             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    ADC             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SUB             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SBC             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    AND             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    OR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    XOR             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    NOT             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SL              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SRL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    SRA             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    RRA             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    RR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    RL              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    JMP             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    JAL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    BR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    BC              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    BO              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    BN              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    BZ              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-    $end            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
-
-
-state 84
+state 70
 
     (17) inst -> ADC REGISTER REGISTER .
 
@@ -1751,90 +1204,216 @@ state 84
     BO              reduce using rule 17 (inst -> ADC REGISTER REGISTER .)
     BN              reduce using rule 17 (inst -> ADC REGISTER REGISTER .)
     BZ              reduce using rule 17 (inst -> ADC REGISTER REGISTER .)
+    CHK             reduce using rule 17 (inst -> ADC REGISTER REGISTER .)
     $end            reduce using rule 17 (inst -> ADC REGISTER REGISTER .)
 
 
-state 85
+state 71
 
-    (16) inst -> ADD REGISTER REGISTER .
+    (5) inst -> FILL NUMBER NUMBER .
 
-    WORD            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    FILL            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    NOP             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    EI              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    DI              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SWI             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    USR             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    LD              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    ST              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    MOV             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    LIL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    LIH             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    ADD             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    ADC             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SUB             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SBC             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    AND             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    OR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    XOR             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    NOT             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SL              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SRL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    SRA             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    RRA             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    RR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    RL              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    JMP             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    JAL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    BR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    BC              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    BO              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    BN              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    BZ              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-    $end            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
-
-
-state 86
-
-    (14) inst -> LIL REGISTER NUMBER .
-
-    WORD            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    FILL            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    NOP             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    EI              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    DI              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SWI             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    USR             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    LD              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    ST              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    MOV             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    LIL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    LIH             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    ADD             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    ADC             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SUB             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SBC             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    AND             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    OR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    XOR             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    NOT             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SL              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SRL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    SRA             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    RRA             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    RR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    RL              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    JMP             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    JAL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    BR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    BC              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    BO              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    BN              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    BZ              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
-    $end            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    WORD            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    FILL            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    NOP             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    EI              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    DI              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SWI             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    USR             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    LD              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    ST              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    MOV             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    LIL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    LIH             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    ADD             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    ADC             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SUB             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SBC             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    AND             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    OR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    XOR             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    NOT             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SL              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SRL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    SRA             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    RRA             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    RR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    RL              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    JMP             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    JAL             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    BR              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    BC              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    BO              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    BN              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    BZ              reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    CHK             reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
+    $end            reduce using rule 5 (inst -> FILL NUMBER NUMBER .)
 
 
-state 87
+state 72
+
+    (24) inst -> SL REGISTER REGISTER .
+
+    WORD            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    FILL            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    NOP             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    EI              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    DI              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SWI             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    USR             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    LD              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    ST              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    MOV             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    LIL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    LIH             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    ADD             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    ADC             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SUB             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SBC             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    AND             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    OR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    XOR             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    NOT             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SL              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SRL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    SRA             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    RRA             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    RR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    RL              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    JMP             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    JAL             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    BR              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    BC              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    BO              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    BN              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    BZ              reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    CHK             reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+    $end            reduce using rule 24 (inst -> SL REGISTER REGISTER .)
+
+
+state 73
+
+    (27) inst -> RRA REGISTER REGISTER .
+
+    WORD            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    FILL            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    NOP             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    EI              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    DI              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SWI             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    USR             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    LD              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    ST              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    MOV             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    LIL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    LIH             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    ADD             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    ADC             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SUB             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SBC             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    AND             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    OR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    XOR             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    NOT             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SL              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SRL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    SRA             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    RRA             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    RR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    RL              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    JMP             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    JAL             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    BR              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    BC              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    BO              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    BN              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    BZ              reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    CHK             reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+    $end            reduce using rule 27 (inst -> RRA REGISTER REGISTER .)
+
+
+state 74
+
+    (31) inst -> JAL REGISTER NUMBER .
+
+    WORD            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    FILL            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    NOP             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    EI              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    DI              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SWI             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    USR             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    LD              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    ST              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    MOV             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    LIL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    LIH             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    ADD             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    ADC             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SUB             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SBC             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    AND             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    OR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    XOR             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    NOT             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SL              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SRL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    SRA             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    RRA             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    RR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    RL              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    JMP             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    JAL             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    BR              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    BC              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    BO              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    BN              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    BZ              reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    CHK             reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+    $end            reduce using rule 31 (inst -> JAL REGISTER NUMBER .)
+
+
+state 75
+
+    (29) inst -> RL REGISTER REGISTER .
+
+    WORD            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    FILL            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    NOP             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    EI              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    DI              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SWI             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    USR             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    LD              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    ST              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    MOV             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    LIL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    LIH             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    ADD             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    ADC             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SUB             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SBC             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    AND             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    OR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    XOR             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    NOT             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SL              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SRL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    SRA             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    RRA             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    RR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    RL              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    JMP             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    JAL             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    BR              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    BC              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    BO              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    BN              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    BZ              reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    CHK             reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+    $end            reduce using rule 29 (inst -> RL REGISTER REGISTER .)
+
+
+state 76
 
     (26) inst -> SRA REGISTER REGISTER .
 
@@ -1871,17 +1450,11 @@ state 87
     BO              reduce using rule 26 (inst -> SRA REGISTER REGISTER .)
     BN              reduce using rule 26 (inst -> SRA REGISTER REGISTER .)
     BZ              reduce using rule 26 (inst -> SRA REGISTER REGISTER .)
+    CHK             reduce using rule 26 (inst -> SRA REGISTER REGISTER .)
     $end            reduce using rule 26 (inst -> SRA REGISTER REGISTER .)
 
 
-state 88
-
-    (11) inst -> LD REGISTER REGISTER . NUMBER
-
-    NUMBER          shift and go to state 92
-
-
-state 89
+state 77
 
     (28) inst -> RR REGISTER REGISTER .
 
@@ -1918,10 +1491,312 @@ state 89
     BO              reduce using rule 28 (inst -> RR REGISTER REGISTER .)
     BN              reduce using rule 28 (inst -> RR REGISTER REGISTER .)
     BZ              reduce using rule 28 (inst -> RR REGISTER REGISTER .)
+    CHK             reduce using rule 28 (inst -> RR REGISTER REGISTER .)
     $end            reduce using rule 28 (inst -> RR REGISTER REGISTER .)
 
 
-state 90
+state 78
+
+    (20) inst -> AND REGISTER REGISTER .
+
+    WORD            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    FILL            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    NOP             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    EI              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    DI              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SWI             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    USR             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    LD              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    ST              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    MOV             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    LIL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    LIH             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    ADD             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    ADC             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SUB             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SBC             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    AND             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    OR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    XOR             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    NOT             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SL              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SRL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    SRA             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    RRA             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    RR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    RL              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    JMP             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    JAL             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    BR              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    BC              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    BO              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    BN              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    BZ              reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    CHK             reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+    $end            reduce using rule 20 (inst -> AND REGISTER REGISTER .)
+
+
+state 79
+
+    (19) inst -> SBC REGISTER REGISTER .
+
+    WORD            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    FILL            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    NOP             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    EI              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    DI              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SWI             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    USR             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    LD              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    ST              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    MOV             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    LIL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    LIH             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    ADD             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    ADC             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SUB             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SBC             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    AND             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    OR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    XOR             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    NOT             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SL              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SRL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    SRA             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    RRA             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    RR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    RL              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    JMP             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    JAL             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    BR              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    BC              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    BO              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    BN              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    BZ              reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    CHK             reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+    $end            reduce using rule 19 (inst -> SBC REGISTER REGISTER .)
+
+
+state 80
+
+    (22) inst -> XOR REGISTER REGISTER .
+
+    WORD            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    FILL            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    NOP             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    EI              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    DI              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SWI             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    USR             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    LD              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    ST              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    MOV             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    LIL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    LIH             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    ADD             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    ADC             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SUB             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SBC             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    AND             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    OR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    XOR             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    NOT             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SL              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SRL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    SRA             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    RRA             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    RR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    RL              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    JMP             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    JAL             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    BR              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    BC              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    BO              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    BN              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    BZ              reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    CHK             reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+    $end            reduce using rule 22 (inst -> XOR REGISTER REGISTER .)
+
+
+state 81
+
+    (18) inst -> SUB REGISTER REGISTER .
+
+    WORD            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    FILL            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    NOP             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    EI              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    DI              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SWI             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    USR             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    LD              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    ST              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    MOV             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    LIL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    LIH             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    ADD             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    ADC             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SUB             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SBC             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    AND             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    OR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    XOR             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    NOT             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SL              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SRL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    SRA             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    RRA             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    RR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    RL              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    JMP             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    JAL             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    BR              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    BC              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    BO              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    BN              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    BZ              reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    CHK             reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+    $end            reduce using rule 18 (inst -> SUB REGISTER REGISTER .)
+
+
+state 82
+
+    (11) inst -> LD REGISTER REGISTER . NUMBER
+
+    NUMBER          shift and go to state 94
+
+
+state 83
+
+    (37) inst -> CHK CHK_MACRO NUMBER .
+
+    WORD            reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    FILL            reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    NOP             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    EI              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    DI              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SWI             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    USR             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    LD              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    ST              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    MOV             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    LIL             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    LIH             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    ADD             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    ADC             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SUB             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SBC             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    AND             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    OR              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    XOR             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    NOT             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SL              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SRL             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    SRA             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    RRA             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    RR              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    RL              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    JMP             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    JAL             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    BR              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    BC              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    BO              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    BN              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    BZ              reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    CHK             reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+    $end            reduce using rule 37 (inst -> CHK CHK_MACRO NUMBER .)
+
+
+state 84
+
+    (4) inst -> WORD NUMBER NUMBER .
+
+    WORD            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    FILL            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    NOP             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    EI              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    DI              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SWI             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    USR             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    LD              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    ST              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    MOV             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    LIL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    LIH             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    ADD             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    ADC             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SUB             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SBC             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    AND             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    OR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    XOR             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    NOT             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SL              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SRL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    SRA             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    RRA             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    RR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    RL              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    JMP             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    JAL             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    BR              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    BC              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    BO              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    BN              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    BZ              reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    CHK             reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+    $end            reduce using rule 4 (inst -> WORD NUMBER NUMBER .)
+
+
+state 85
+
+    (2) instlist -> inst instlist .
+
+    $end            reduce using rule 2 (instlist -> inst instlist .)
+
+
+state 86
+
+    (16) inst -> ADD REGISTER REGISTER .
+
+    WORD            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    FILL            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    NOP             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    EI              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    DI              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SWI             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    USR             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    LD              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    ST              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    MOV             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    LIL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    LIH             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    ADD             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    ADC             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SUB             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SBC             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    AND             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    OR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    XOR             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    NOT             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SL              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SRL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    SRA             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    RRA             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    RR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    RL              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    JMP             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    JAL             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    BR              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    BC              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    BO              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    BN              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    BZ              reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    CHK             reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+    $end            reduce using rule 16 (inst -> ADD REGISTER REGISTER .)
+
+
+state 87
 
     (13) inst -> MOV REGISTER REGISTER .
 
@@ -1958,50 +1833,223 @@ state 90
     BO              reduce using rule 13 (inst -> MOV REGISTER REGISTER .)
     BN              reduce using rule 13 (inst -> MOV REGISTER REGISTER .)
     BZ              reduce using rule 13 (inst -> MOV REGISTER REGISTER .)
+    CHK             reduce using rule 13 (inst -> MOV REGISTER REGISTER .)
     $end            reduce using rule 13 (inst -> MOV REGISTER REGISTER .)
+
+
+state 88
+
+    (23) inst -> NOT REGISTER REGISTER .
+
+    WORD            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    FILL            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    NOP             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    EI              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    DI              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SWI             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    USR             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    LD              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    ST              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    MOV             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    LIL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    LIH             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    ADD             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    ADC             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SUB             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SBC             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    AND             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    OR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    XOR             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    NOT             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SL              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SRL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    SRA             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    RRA             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    RR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    RL              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    JMP             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    JAL             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    BR              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    BC              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    BO              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    BN              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    BZ              reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    CHK             reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+    $end            reduce using rule 23 (inst -> NOT REGISTER REGISTER .)
+
+
+state 89
+
+    (30) inst -> JMP REGISTER NUMBER .
+
+    WORD            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    FILL            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    NOP             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    EI              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    DI              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SWI             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    USR             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    LD              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    ST              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    MOV             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    LIL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    LIH             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    ADD             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    ADC             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SUB             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SBC             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    AND             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    OR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    XOR             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    NOT             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SL              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SRL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    SRA             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    RRA             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    RR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    RL              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    JMP             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    JAL             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    BR              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    BC              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    BO              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    BN              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    BZ              reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    CHK             reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+    $end            reduce using rule 30 (inst -> JMP REGISTER NUMBER .)
+
+
+state 90
+
+    (25) inst -> SRL REGISTER REGISTER .
+
+    WORD            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    FILL            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    NOP             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    EI              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    DI              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SWI             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    USR             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    LD              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    ST              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    MOV             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    LIL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    LIH             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    ADD             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    ADC             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SUB             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SBC             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    AND             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    OR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    XOR             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    NOT             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SL              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SRL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    SRA             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    RRA             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    RR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    RL              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    JMP             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    JAL             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    BR              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    BC              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    BO              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    BN              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    BZ              reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    CHK             reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
+    $end            reduce using rule 25 (inst -> SRL REGISTER REGISTER .)
 
 
 state 91
 
-    (12) inst -> ST REGISTER REGISTER NUMBER .
+    (12) inst -> ST REGISTER REGISTER . NUMBER
 
-    WORD            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    FILL            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    NOP             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    EI              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    DI              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SWI             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    USR             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    LD              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    ST              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    MOV             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    LIL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    LIH             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    ADD             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    ADC             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SUB             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SBC             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    AND             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    OR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    XOR             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    NOT             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SL              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SRL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    SRA             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    RRA             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    RR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    RL              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    JMP             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    JAL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    BR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    BC              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    BO              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    BN              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    BZ              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
-    $end            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    NUMBER          shift and go to state 95
 
 
 state 92
+
+    (15) inst -> LIH REGISTER NUMBER .
+
+    WORD            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    FILL            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    NOP             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    EI              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    DI              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SWI             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    USR             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    LD              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    ST              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    MOV             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    LIL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    LIH             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    ADD             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    ADC             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SUB             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SBC             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    AND             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    OR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    XOR             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    NOT             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SL              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SRL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    SRA             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    RRA             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    RR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    RL              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    JMP             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    JAL             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    BR              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    BC              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    BO              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    BN              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    BZ              reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    CHK             reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+    $end            reduce using rule 15 (inst -> LIH REGISTER NUMBER .)
+
+
+state 93
+
+    (14) inst -> LIL REGISTER NUMBER .
+
+    WORD            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    FILL            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    NOP             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    EI              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    DI              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SWI             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    USR             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    LD              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    ST              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    MOV             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    LIL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    LIH             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    ADD             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    ADC             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SUB             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SBC             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    AND             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    OR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    XOR             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    NOT             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SL              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SRL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    SRA             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    RRA             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    RR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    RL              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    JMP             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    JAL             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    BR              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    BC              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    BO              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    BN              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    BZ              reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    CHK             reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+    $end            reduce using rule 14 (inst -> LIL REGISTER NUMBER .)
+
+
+state 94
 
     (11) inst -> LD REGISTER REGISTER NUMBER .
 
@@ -2038,5 +2086,47 @@ state 92
     BO              reduce using rule 11 (inst -> LD REGISTER REGISTER NUMBER .)
     BN              reduce using rule 11 (inst -> LD REGISTER REGISTER NUMBER .)
     BZ              reduce using rule 11 (inst -> LD REGISTER REGISTER NUMBER .)
+    CHK             reduce using rule 11 (inst -> LD REGISTER REGISTER NUMBER .)
     $end            reduce using rule 11 (inst -> LD REGISTER REGISTER NUMBER .)
+
+
+state 95
+
+    (12) inst -> ST REGISTER REGISTER NUMBER .
+
+    WORD            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    FILL            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    NOP             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    EI              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    DI              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SWI             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    USR             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    LD              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    ST              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    MOV             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    LIL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    LIH             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    ADD             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    ADC             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SUB             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SBC             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    AND             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    OR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    XOR             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    NOT             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SL              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SRL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    SRA             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    RRA             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    RR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    RL              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    JMP             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    JAL             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    BR              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    BC              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    BO              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    BN              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    BZ              reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    CHK             reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
+    $end            reduce using rule 12 (inst -> ST REGISTER REGISTER NUMBER .)
 

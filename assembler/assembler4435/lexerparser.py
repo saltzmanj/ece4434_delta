@@ -112,6 +112,9 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+check_macros = [
+    "INST_CHECK"
+]
 def throw_syntax_error(line, msg, value):
     print(bcolors.BOLD + bcolors.FAIL + "Syntax Error (line " + \
             str(line) + "): " + bcolors.ENDC + \
@@ -133,8 +136,11 @@ def t_comment_eol_3(t):
     r'//[^\n]*'
 
 def t_opcode_register(t):
-    r'[a-zA-Z]+([0-9]+)?'
-    if t.value.upper() in opcodes:
+    r'[a-zA-Z_]+([0-9]+)?'
+    if t.value.upper() in check_macros:
+        t.type = 'CHK_MACRO'
+        t.value = t.value.upper()
+    elif t.value.upper() in opcodes:
         t.type = t.value.upper()
         t.value = t.value.upper()
     elif t.value.upper() in register_aliases:
@@ -146,6 +152,11 @@ def t_opcode_register(t):
             "Invalid opcode or register " + bcolors.BOLD + t.value)
         exit(1)
     return t
+
+# def t_CHK_MACRO(t):
+#     r'INST_CHECK'
+#     t.type = 'CHK_MACRO'
+#     return t
 
 def t_number_hex(t):
     r'(\-)?0x[0-9a-fA-F]+'
@@ -353,6 +364,10 @@ def p_inst_bn(p):
 def p_inst_bz(p):
     'inst : BZ NUMBER'
     p[0] = [ParseData(p[1], p[2], None, None, p.lineno(1))]
+
+def p_inst_chk(p):
+    'inst : CHK CHK_MACRO NUMBER'
+    p[0] = [ParseData(p[1], p[2], p[3], None, p.lineno(1))]
 
 def p_error(p):
     print(bcolors.BOLD + bcolors.FAIL + "Syntax Error (line " + \
@@ -613,6 +628,23 @@ def instr_to_machine_code(inst, caddr):
                 " direction.", arg.p2)
         lit_list = [num_to_fill] * (fill_to - caddr)
         mi_ret = MachineInstruction.from_list(lit_list)
+
+    elif inst.opcode == "CHK":
+        offset_bin = number_to_binary(inst.arg2, 9)
+        check_type = ""
+        if inst.arg1 == "INST_CHECK":
+            check_type = "000"
+        else:
+            throw_syntax_error(inst.lineno, "Invalid check type:", \
+                inst.arg1)
+            exit(1)
+        check_bin = "000" + "1" + check_type + offset_bin
+        mi_ret = MachineInstruction.from_single(check_bin)
+
+    else:
+        throw_syntax_error(inst.lineno, "Invalid opcode:", \
+            inst.opcode)
+
 
     return mi_ret
 
