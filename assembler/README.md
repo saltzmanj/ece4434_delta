@@ -59,8 +59,9 @@ R5 | RSI
 R14| RJL*
 R15| RCT**
 
-* RJL: jump-and-link register. Calling a JAL will place the return address in this register.
-** RCT: Check table register. Holds the base address of the check table: used for the instruction checker module.
+\* RJL: jump-and-link register. Calling a JAL will place the return address in this register.
+
+\*\* RCT: Check table register. Holds the base address of the check table: used for the instruction checker module.
 
 
 
