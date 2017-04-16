@@ -46,6 +46,24 @@ ST R4, R15, 0x02 -- Store the result in memory
 
 ```
 
+You can also use x86-style register names if you want. The following register names are equivalent:
+
+Register Number|Register Alias
+---------------|--------------
+R0 | RAX
+R1 | RBX
+R2 | RCX
+R3 | RDX
+R4 | RDI
+R5 | RSI
+R14| RJL*
+R15| RCT**
+
+* RJL: jump-and-link register. Calling a JAL will place the return address in this register.
+** RCT: Check table register. Holds the base address of the check table: used for the instruction checker module.
+
+
+
 ### Instructions
 
 **Loads and Stores**
