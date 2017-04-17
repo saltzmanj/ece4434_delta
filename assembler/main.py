@@ -577,7 +577,6 @@ def inst_to_binary(inst, caddr):
             if (i != fill_to):
                 ret_str += "\n"
         return [ret_str, (fill_to + 1 - caddr - 1)]
-    elif opcode == ""
 
     else:
         print("DIDN'T DEAL WITH " + opcode)
