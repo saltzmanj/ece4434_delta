@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
 import sys
 import ply.lex as lex
 import ply.yacc as yacc
+
 opcodes = [
     'NOP',
     'EI',
@@ -371,7 +373,7 @@ def p_inst_chk(p):
 
 def p_error(p):
     print(bcolors.BOLD + bcolors.FAIL + "Syntax Error (line " + \
-            str(t.lexer.lineno) + "): " + bcolors.ENDC + \
+            str(p.lexer.lineno) + "): " + bcolors.ENDC + \
             "Invalid sequence " + bcolors.BOLD + p.value)
     exit(1)
 

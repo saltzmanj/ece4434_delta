@@ -34,19 +34,19 @@ sub r8, r11 	; r8 = i - 1
 sub r8, r7 		; i-1 - j
 bz 	14			; if j = i - 1, exit inner loop
 				; TODO: Calculate branch addresses
-				; Main swap logic		
-ld rcx, rsi, r7 ; Load mem[j] = rcx, mem[j+1] = rdx
-mov r8, r7
-add r8, r11
-ld rdx, rsi, r8
+				; Main swap logic
+mov rdi, rsi
+add rdi, r7
+ld rcx, rdi, 0 ; Load mem[j] = rcx, mem[j+1] = rdx
+ld rdx, rdi, 1
 mov r9, rcx
 mov r10, rdx
 sub r9, r10
 ; If r9 - r10 <= 0 (e.g. we don't need to swap), branch over swap logic
 bn 4			; branch over swap logic (to the add)
-st rcx, rsi, r8
+st rcx, rdi, 1
 sub r8, r11
-st rdx, rsi, r8
+st rdx, rdi, 0
 
 add r7, r11 ; add 1 to j (j++)
 br -16; go back to inner loop start
