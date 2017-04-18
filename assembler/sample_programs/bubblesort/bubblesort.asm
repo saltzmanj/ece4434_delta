@@ -1,5 +1,5 @@
 -- Bubblesort Algorithm
-[WORD] 16, 1
+[WORD] 32, 1
 [FILL] 0x0000, 16
 
 [WORD] 0x000a, 1 ; Array size: 16
