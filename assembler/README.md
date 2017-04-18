@@ -10,7 +10,7 @@ Jonathan Lowe (@jl4ge) and Jake Saltzman (@saltzmanj)
 The assembler accepts the file to be assembled as a command line argument and outputs to `stdout`. Call like so:
 
 ```
-sh$ ./main.py input_file.asm > memoryinit.txt
+sh$ ./lexerparser.py input_file.asm > memoryinit.txt
 ```
 
 
@@ -56,8 +56,8 @@ R2 | RCX
 R3 | RDX
 R4 | RDI
 R5 | RSI
-R14| RJL*
-R15| RCT**
+R14| RJL\*
+R15 | RCT\*\*
 
 \* RJL: jump-and-link register. Calling a JAL will place the return address in this register.
 
@@ -122,6 +122,48 @@ BR 0x05
 The following two are equivalent:
 BO -2
 BO 0xFE
+```
+### Instruction Checking
+This ISA supports the instruction check module. 
+
+**CHK Instructions**
+
+Instruction | Description
+-------------|---------------
+Check Instruction | Activates the instruction checker module for the immediately following instruction by comparing a redundant version of the instruction elsewhere in memory. The address of the redundant instruction is [RCT + <9 bit immediate offset> ].
+
+#### Encoding
+
+Instruction| 15:13 | 12 | 11:9 | 8:0
+-----------------------|------|----|------|-----
+Check Instruction | 000 | 1 | 000 | Offset into redundancy table
+
+#### Assembly
+
+
+**Check Instruction**
+```
+-- Load address of redundancy table
+LIL RCT, 0x00
+LIH RCT, 0x80
+
+...
+
+CHK INST_CHECK, 0
+LD R1, R12, 0x04 -- Example instruction
+MOV R5, R1
+ADD R1, R5
+CHK INST_CHECK, 1
+ADD R1, R5
+
+...
+
+-- End of program
+[FILL] 0x0000, 0x8000
+-- Begin Redundancy table
+LD R1, R12, 0x04 -- Redundant Instruction 0
+ADD R1, R5 -- Redundant Instruction 1
+
 ```
 
 ### Pseudo-Instructions
