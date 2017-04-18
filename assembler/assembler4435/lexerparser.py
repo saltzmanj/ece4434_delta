@@ -582,7 +582,7 @@ def instr_to_machine_code(inst, caddr):
     elif inst.opcode == "JMP":
         offset_bin = number_to_binary(inst.arg2, 8)
         r1_bin = get_reg_id(inst.arg1)
-        jal_bin = "110" + r1_bin + "1" + offset_bin
+        jal_bin = "110" + r1_bin + "0" + offset_bin
         mi_ret = MachineInstruction.from_single(jal_bin)
 
     elif inst.opcode == "JAL":
