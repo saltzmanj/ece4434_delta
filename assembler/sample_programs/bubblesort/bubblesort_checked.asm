@@ -33,6 +33,7 @@ ld r6, rsi, 0 	; Load array size into r6 ( i = LENGTH )
 or r6, r6 		; basically a comparison (<- outer loop target)
 bz 21				; If i is zero, branch out of the outer loop (i > 0)
 lil r7, 0 		; (j = 0) (<- inner loop init)
+
 mov r8, r6 		; (<- inner loop target)
 sub r8, r11 	; r8 = i - 1
 sub r8, r7 		; i-1 - j

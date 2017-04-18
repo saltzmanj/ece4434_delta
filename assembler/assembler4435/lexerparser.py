@@ -598,22 +598,22 @@ def instr_to_machine_code(inst, caddr):
 
     elif inst.opcode == "BC":
         target_bin = number_to_binary(inst.arg1, 8)
-        br_bin = "111" + "0001" + "0" + target_bin
+        br_bin = "111" + "1000" + "0" + target_bin
         mi_ret = MachineInstruction.from_single(br_bin)
 
     elif inst.opcode == "BO":
         target_bin = number_to_binary(inst.arg1, 8)
-        br_bin = "111" + "0010" + "0" + target_bin
+        br_bin = "111" + "0100" + "0" + target_bin
         mi_ret = MachineInstruction.from_single(br_bin)
 
     elif inst.opcode == "BN":
         target_bin = number_to_binary(inst.arg1, 8)
-        br_bin = "111" + "0100" + "0" + target_bin
+        br_bin = "111" + "0010" + "0" + target_bin
         mi_ret = MachineInstruction.from_single(br_bin)
 
     elif inst.opcode == "BZ":
         target_bin = number_to_binary(inst.arg1, 8)
-        br_bin = "111" + "1000" + "0" + target_bin
+        br_bin = "111" + "0001" + "0" + target_bin
         mi_ret = MachineInstruction.from_single(br_bin)
 
     elif inst.opcode == "[WORD]":
