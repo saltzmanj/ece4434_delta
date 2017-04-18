@@ -54,3 +54,4 @@ br -16; go back to inner loop start
 sub r6, r11 ; Subtract 1 from i (i--)
 br -21; go back to outer loop start
 nop
+[WORD] 0x0000, 64
