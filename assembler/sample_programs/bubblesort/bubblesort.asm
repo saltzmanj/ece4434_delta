@@ -20,11 +20,12 @@
 ;  R6: outer loop counter (i) (size -> 0)
 ;  R7: inner loop counter (j) (0 -> i - 1)
 
+lil rax, 16
 lil rsi, 17 ; Base address of the array
 lil r10, 0  ; constant zero
 lil r11, 1  ; constant 1
 
-ld r6, rsi, 0 	; Load array size into r6 ( i = LENGTH ) 0x36
+ld r6, rax, 0	; Load array size into r6 ( i = LENGTH ) 0x36
 
 or r6, r6 		; basically a comparison (<- outer loop target)
 bz 21				; If i is zero, branch out of the outer loop (i > 0)
