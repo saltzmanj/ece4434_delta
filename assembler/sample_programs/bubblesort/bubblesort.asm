@@ -26,8 +26,8 @@ lil r10, 0  ; constant zero
 lil r11, 1  ; constant 1
 
 ld r6, rax, 0	; Load array size into r6 ( i = LENGTH ) 0x36
-
-or r6, r6 		; basically a comparison (<- outer loop target)
+mov r9, r6
+add r9, r9 		; basically a comparison (<- outer loop target)
 bz 21				; If i is zero, branch out of the outer loop (i > 0)
 lil r7, 0 		; (j = 0) (<- inner loop init)
 mov r8, r6 		; (<- inner loop target)
@@ -52,6 +52,6 @@ st rdx, rdi, 0
 add r7, r11 ; add 1 to j (j++)
 br -16; go back to inner loop start
 sub r6, r11 ; Subtract 1 from i (i--)
-br -21; go back to outer loop start
+br -22; go back to outer loop start
 nop
 [WORD] 0x0000, 64
