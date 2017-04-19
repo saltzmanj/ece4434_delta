@@ -188,12 +188,33 @@ def ReadMemoryInitFile(fpath):
 
 	return datalines
 
-if __name__ == "__main__":
+def ReadTracefile(fpath):
+	tracefile= open(fpath, 'r')
+	tracelines = [];
+	for line in tracefile:
+		idx = line.split(':')[1].split('-')[0].strip()
+		addr = int(idx)
+		data_c = line.split('[')[1].split(']')[0].strip()
+		data = int(data_c)
+		tracelines.append((addr , data))
+	return tracelines
 
+if __name__ == "__main__":
 	dl = ReadMemoryInitFile(sys.argv[1])
-	print("  addr \t|  data")
-	print("-------\t| ------")
-	for (i, elem) in enumerate(dl):
-		addr = "0x%0.4X" % i
-		inst_decode = Dissassemble(elem, addr)
-		print("{} \t: {} \t| {}".format(addr, elem, inst_decode))
+	if len(sys.argv) == 2:
+		for (i, elem) in enumerate(dl):
+			addr = "0x%0.4X" % i
+			inst_decode = Dissassemble(elem, addr)
+			print("{} \t: {} \t| {}".format(addr, elem, inst_decode))
+	elif len(sys.argv) == 3:
+		tracelines = ReadTracefile(sys.argv[2])
+		for item in tracelines:
+			(addr, data) = item
+			dl[addr] = "0x%0.4X" % data
+		for (i, elem) in enumerate(dl):
+			addr = "0x%0.4X" % i
+			inst_decode = Dissassemble(elem, addr)
+			print("{} \t: {} \t| {}".format(addr, elem, inst_decode))
+
+
+		
