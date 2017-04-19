@@ -1,9 +1,9 @@
-# ECE4435 - Enhanced Assembler
+# ECE4435 - Enhanced Assembler / Disassembler
 
 ## Authors
-Jonathan Lowe (@jl4ge) and Jake Saltzman (@saltzmanj)
-
-## User Guide
+Assembler: Jonathan Lowe (@jl4ge) and Jake Saltzman (@saltzmanj)
+Disassembler: Jake Saltzman (jss7kj)
+## Assembler User Guide
 
 ### Calling the Assembler
 
@@ -217,4 +217,40 @@ compiles down to
 
 Note that the NOP is instruction at address 8: `[FILL]` goes up to, but doesn't include, its `<max address>` argument.
 
+## Disassembler: User Guide
 
+### Calling the disassembler
+
+The disassembler has two functions: it can disassemble a binary file, or combine a binary file with a tracefile to produce a view of the memory state after a complete run of the binary file. 
+
+**Disassembly-only mode**
+```
+sh$ ./memview.py memoryinit.txt
+```
+
+This mode disassembles the input binary file, with three columns: address, data, and instruction. The first instruction (0x0000) is interpreted as a jump to the specified address in the data column, as per the ISA. 
+
+Branch target addresses are calculated; the target address is enclosed in angular brackets (e.g. <0x0040>)
+
+
+```
+0x0000  : 0x0002    | (JMP 0x0020)
+0x0001  : 0x0000    |
+.
+.
+.
+0x0020  : 0x8010    | LIL   rax, 0x10
+0x0021  : 0x8A11    | LIL   rsi, 0x11
+0x0022  : 0x9400    | LIL   r10, 0x0
+0x0023  : 0x9601    | LIL   r11, 0x1
+0x0024  : 0x2C00    | LD    r6, rax, 0x0
+0x0025  : 0xACC5    | OR    r6, r6
+0x0026  : 0xE215    | BZ    21 <0x003B>
+0x0027  : 0x8E00    | LIL   r7, 0x0
+0x0028  : 0x70C0    | MOV   r8, r6
+
+
+```
+
+**Disassemble + Trace Mode**
+This mode disassebles the input binary file, then parses the tracefile and applies the changes contained within. The output produced by the program shows the value of memory *after* all the writes in the tracefile occur. 
