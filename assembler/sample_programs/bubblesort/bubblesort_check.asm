@@ -59,7 +59,7 @@ st rdx, rdi, 0
 add r7, r11 ; add 1 to j (j++)
 br -19; go back to inner loop start
 sub r6, r11 ; Subtract 1 from i (i--)
-br -24; go back to outer loop start
+br -25; go back to outer loop start
 nop
 [FILL] 0x0000, 0x100 ; Start of check table
 st rcx, rdi, 1
