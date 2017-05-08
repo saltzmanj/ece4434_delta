@@ -43,7 +43,7 @@ mov rdi, rsi
 add rdi, r7
 chk INST_CHECK, 1
 ld rcx, rdi, 0 ; Load mem[j] = rcx, mem[j+1] = rdx
-chk INST_CHECK, 2
+; chk INST_CHECK, 2
 ld rdx, rdi, 1
 mov r9, rcx
 mov r10, rdx
