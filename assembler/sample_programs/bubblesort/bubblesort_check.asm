@@ -49,7 +49,7 @@ mov r9, rcx
 mov r10, rdx
 sub r9, r10
 ; If r9 - r10 <= 0 (e.g. we don't need to swap), branch over swap logic
-bn 4			; branch over swap logic (to the add)
+bn 5			; branch over swap logic (to the add)
 
 chk INST_CHECK, 0
 st rcx, rdi, 1
