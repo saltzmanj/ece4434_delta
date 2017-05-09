@@ -70,7 +70,7 @@ def CalculateBranchAddress(caddr, offset):
 	target = addrint + int(offset);
 	return "0x%0.4X" % target 
 
-def Dissassemble(hexstr, addr):
+def DisassembleBinary(hexstr, addr):
 	binstr = bin(int(hexstr, 16))[2:]
 	if len(binstr) < 16:
 		binstr = "0"*(16-len(binstr)) + binstr
@@ -79,10 +79,10 @@ def Dissassemble(hexstr, addr):
 	if addr == "0x0000":
 		retstr += "(JMP " + hexstr + ")"
 	elif binstr[0:3] == "000":
-		if binstr[4] == "1":
+		if binstr[3] == "1":
 			retstr += "CHK\t"
-			if binstr[5:8] == "000":
-				retstr += "INST_CHECK" + BinToHexStr(binstr[8:])
+			if binstr[4:7] == "000":
+				retstr += "INST_CHECK " + BinToHexStr(binstr[8:])
 		elif binstr[11:13] == "01" and binstr[15] == "1":
 			retstr += "EI\t"
 		elif binstr[11:13] == "01" and binstr[15] == "0":
@@ -204,7 +204,7 @@ if __name__ == "__main__":
 	if len(sys.argv) == 2:
 		for (i, elem) in enumerate(dl):
 			addr = "0x%0.4X" % i
-			inst_decode = Dissassemble(elem, addr)
+			inst_decode = DisassembleBinary(elem, addr)
 			print("{} \t: {} \t| {}".format(addr, elem, inst_decode))
 	elif len(sys.argv) == 3:
 		tracelines = ReadTracefile(sys.argv[2])
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 			dl[addr] = "0x%0.4X" % data
 		for (i, elem) in enumerate(dl):
 			addr = "0x%0.4X" % i
-			inst_decode = Dissassemble(elem, addr)
+			inst_decode = DisassembleBinary(elem, addr)
 			print("{} \t: {} \t| {}".format(addr, elem, inst_decode))
 
 
