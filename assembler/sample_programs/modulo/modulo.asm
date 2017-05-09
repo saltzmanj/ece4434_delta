@@ -33,10 +33,8 @@ mov r9, r7
 sub r9, r6
 
 bn 0x03
+sub r7, r6
 
-sub r7, r6
-bn 0x3
-sub r7, r6
 add r8, r1
 sub r5, r1
 bz 0x2
