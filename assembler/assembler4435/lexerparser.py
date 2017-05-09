@@ -627,7 +627,7 @@ def instr_to_machine_code(inst, caddr):
         fill_to = int(inst.arg2)
         if fill_to < caddr:
             throw_syntax_error(inst.lineno, "Can't [fill] in reverse"
-                " direction.", arg.p2)
+                " direction.", inst.arg2)
         lit_list = [num_to_fill] * (fill_to - caddr)
         mi_ret = MachineInstruction.from_list(lit_list)
 
