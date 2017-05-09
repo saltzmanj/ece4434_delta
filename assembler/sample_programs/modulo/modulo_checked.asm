@@ -13,7 +13,7 @@ lil r15, 0x64
 chk INST_CHECK, 0
 lih r4, 0
 
-lil r14, 0x18
+lil r14, 0x1D
 lil r5, 0x10
 
 chk INST_CHECK, 1
